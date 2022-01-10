@@ -6,7 +6,9 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 
-MyController::MyController(Matrix &m, QWidget &w): matrix(&m), mainWidget(&w){
+MyController::MyController()
+
+/*MyController::MyController(Matrix &m, QWidget &w): matrix(&m), mainWidget(&w){
     table = new QTableWidget(matrix->getRows()-1,matrix->getColumns()-1);
     for(int m=1; m<matrix->getColumns(); m++)
         table->setHorizontalHeaderItem(m-1, new QTableWidgetItem(matrix->getValue(0,m)));
@@ -20,7 +22,7 @@ MyController::MyController(Matrix &m, QWidget &w): matrix(&m), mainWidget(&w){
     chart = new MyRadarChart(*matrix);
     chartView = new QChartView(chart->createChart());
     //table->show(); //fa la vista
-}
+}*/
 
 void MyController::show() {
     /*if(matrix == nullptr) {
