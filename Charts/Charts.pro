@@ -25,7 +25,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    matrix.cpp \
+    myabstractchart.cpp \
+    myabstractdatechart.cpp \
+    myareachart.cpp \
+    mybarchart.cpp \
+    mycontroller.cpp \
+    mylinebarchart.cpp \
+    mylinechart.cpp \
+    myradarchart.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    matrix.h \
+    myabstractchart.h \
+    myabstractdatechart.h \
+    myareachart.h \
+    mybarchart.h \
+    mycontroller.h \
+    mylinebarchart.h \
+    mylinechart.h \
+    myradarchart.h
