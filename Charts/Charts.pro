@@ -34,7 +34,8 @@ SOURCES += \
     mycontroller.cpp \
     mylinebarchart.cpp \
     mylinechart.cpp \
-    myradarchart.cpp
+    myradarchart.cpp \
+    loader.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,4 +47,5 @@ HEADERS += \
     mycontroller.h \
     mylinebarchart.h \
     mylinechart.h \
-    myradarchart.h
+    myradarchart.h \
+    loader.h
