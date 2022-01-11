@@ -35,6 +35,7 @@ private:
     QChartView *chartView;
 public:
     MyView(QWidget *parent = nullptr);
+    void setController(MyController *c);
 };
 
 #endif // MYVIEW_H

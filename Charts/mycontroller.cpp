@@ -6,8 +6,6 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 
-MyController::MyController()
-
 /*MyController::MyController(Matrix &m, QWidget &w): matrix(&m), mainWidget(&w){
     table = new QTableWidget(matrix->getRows()-1,matrix->getColumns()-1);
     for(int m=1; m<matrix->getColumns(); m++)
@@ -53,7 +51,7 @@ void MyController::show() {
 }
 
 void MyController::modifyMatrix(int x, int y) {
-    matrix->insertValue(x+1,y+1,table->item(x,y)->text());
+    model->modifyValue(x+1,y+1,table->item(x,y)->text());
     chartView->setChart(chart->createChart());
     /*QMessageBox msgBox;
     msgBox.setText(matrix->getValue(x,y));

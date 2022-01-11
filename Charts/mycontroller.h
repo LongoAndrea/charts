@@ -16,7 +16,7 @@ private:
   MyAbstractChart *chart;
   QWidget *mainWidget;
 public:
-  MyController(MyModel *m) : model(m), table(nullptr), chartView(nullptr), chart(nullptr), mainWidget(nullptr)
+  MyController(MyModel *m) : model(m), table(nullptr), chartView(nullptr), chart(nullptr), mainWidget(nullptr) {}
   //MyController(Matrix &m, QWidget &w);
   void show();
   //QTableWidget* getTableWidget() {return table;} //const ???
