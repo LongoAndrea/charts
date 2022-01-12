@@ -4,7 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui charts
+QT       += core gui
+QT += charts
+QT += xml
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,6 +28,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
+        mainwindow.cpp \
     matrix.cpp \
     myabstractchart.cpp \
     myabstractdatechart.cpp \
@@ -35,10 +39,10 @@ SOURCES += \
     mylinechart.cpp \
     myradarchart.cpp \
     loader.cpp \
-    mymodel.cpp \
-    myview.cpp
+    xmlloader.cpp
 
 HEADERS += \
+        mainwindow.h \
     matrix.h \
     myabstractchart.h \
     myabstractdatechart.h \
@@ -49,5 +53,4 @@ HEADERS += \
     mylinechart.h \
     myradarchart.h \
     loader.h \
-    mymodel.h \
-    myview.h
+    xmlloader.h

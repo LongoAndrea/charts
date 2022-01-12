@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<type>barchart</type>
+<column>
+    <row>il titolo del grafico </row><?titolo?>
+    <row>Andrea</row>
+    <row>Bepi</row>
+    <row>Stannis</row>
+</column>
+<column>
+    <row>gennaio</row>
+    <row>17</row>
+    <row>5</row>
+    <row>7</row>
+</column>
+<column>
+    <row>febbraio</row>
+    <row>25</row>
+    <row>13</row>
+    <row>9</row>
+</column>
+</data>
