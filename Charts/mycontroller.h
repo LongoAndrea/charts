@@ -15,7 +15,7 @@ private:
   MyAbstractChart *chart;
   MyView *view;
 public:
-  MyController() {}
+  MyController(QObject* parent = 0) : QObject(parent) {}
   //MyController(Matrix &m, QWidget &w);
   //void show();
   void setModel(MyModel *m) {model = m;}
@@ -23,12 +23,6 @@ public:
   //QTableWidget* getTableWidget() {return table;} //const ???
 public slots:
   void modifyMatrix(int x, int y, const QString& value);
-  /*void openFile();
-  void saveFile();
-  void addRow();
-  void addColumn();
-  void deleteRow();
-  void deleteColumn();*/
   void newBarChart() const;
 };
 #endif

@@ -48,7 +48,7 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
 
 void MyView::setController(MyController *c) {
     controller = c;
-    QObject::connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT(newBarChart()));
+    connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT(newBarChart()));
 /*
     connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile()));
     connect(saveFileButton,SIGNAL(clicked()),controller,SLOT(saveFile()));
