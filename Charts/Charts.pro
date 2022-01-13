@@ -27,8 +27,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
     matrix.cpp \
     myabstractchart.cpp \
     myabstractdatechart.cpp \
@@ -39,10 +38,11 @@ SOURCES += \
     mylinechart.cpp \
     myradarchart.cpp \
     loader.cpp \
-    xmlloader.cpp
+    xmlloader.cpp \
+    mymodel.cpp \
+    myview.cpp
 
 HEADERS += \
-        mainwindow.h \
     matrix.h \
     myabstractchart.h \
     myabstractdatechart.h \
@@ -53,4 +53,6 @@ HEADERS += \
     mylinechart.h \
     myradarchart.h \
     loader.h \
-    xmlloader.h
+    xmlloader.h \
+    mymodel.h \
+    myview.h

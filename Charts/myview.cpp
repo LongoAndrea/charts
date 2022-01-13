@@ -1,5 +1,6 @@
 #include "myview.h"
 
+
 MyView::MyView(QWidget *parent) : QWidget(parent) {
     QVBoxLayout* vlayout = new QVBoxLayout();
 
@@ -47,7 +48,7 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
 
 void MyView::setController(MyController *c) {
     controller = c;
-
+/*
     connect(openFileButton,SIGNAL(clicked()),controller,SLOT());
     connect(saveFileButton,SIGNAL(clicked()),controller,SLOT());
     connect(addRowButton,SIGNAL(clicked()),controller,SLOT());
@@ -58,5 +59,5 @@ void MyView::setController(MyController *c) {
     connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT());
+    connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT());*/
 }
