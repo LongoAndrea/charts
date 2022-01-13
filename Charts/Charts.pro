@@ -40,7 +40,8 @@ SOURCES += \
     loader.cpp \
     xmlloader.cpp \
     mymodel.cpp \
-    myview.cpp
+    myview.cpp \
+    standardinputdialog.cpp
 
 HEADERS += \
     matrix.h \
@@ -55,4 +56,5 @@ HEADERS += \
     loader.h \
     xmlloader.h \
     mymodel.h \
-    myview.h
+    myview.h \
+    standardinputdialog.h

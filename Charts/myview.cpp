@@ -1,5 +1,5 @@
 #include "myview.h"
-
+#include "standardinputdialog.h"
 
 MyView::MyView(QWidget *parent) : QWidget(parent) {
     QVBoxLayout* vlayout = new QVBoxLayout();
@@ -48,16 +48,32 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
 
 void MyView::setController(MyController *c) {
     controller = c;
+    QObject::connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT(newBarChart()));
 /*
-    connect(openFileButton,SIGNAL(clicked()),controller,SLOT());
-    connect(saveFileButton,SIGNAL(clicked()),controller,SLOT());
-    connect(addRowButton,SIGNAL(clicked()),controller,SLOT());
-    connect(addColumnButton,SIGNAL(clicked()),controller,SLOT());
-    connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT());
-    connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT());
+    connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile()));
+    connect(saveFileButton,SIGNAL(clicked()),controller,SLOT(saveFile()));
+    connect(addRowButton,SIGNAL(clicked()),controller,SLOT(addRow()));
+    connect(addColumnButton,SIGNAL(clicked()),controller,SLOT(addColumn()));
+    connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT(deleteRow()));
+    connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn()));
     connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT());
+    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT());*/
+}
+
+void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
+    StandardInputDialog dialog;
+    dialog.setWindowTitle("Insert new Chart data");
+    int res = dialog.exec();
+    if(res == QDialog::Rejected) return;
+    title = dialog.getTitle();
+    rows = dialog.getRows();
+    columns = dialog.getColumns();
+}
+
+void MyView::setChart(QChart* c) {
+    chartView->setChart(c);
 }

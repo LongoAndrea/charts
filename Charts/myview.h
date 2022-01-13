@@ -36,6 +36,8 @@ private:
 public:
     MyView(QWidget *parent = nullptr);
     void setController(MyController *c);
+    void showStandardInputDialog(QString& title, int& rows, int& columns);
+    void setChart(QChart* c);
 };
 
 #endif // MYVIEW_H

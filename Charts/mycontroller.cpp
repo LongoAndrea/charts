@@ -22,13 +22,13 @@
     //table->show(); //fa la vista
 }*/
 
-void MyController::show() {
+//void MyController::show() {
     /*if(matrix == nullptr) {
         QWidget *w = new QWidget();
         w->show();
     }*/
     //else {
-        QHBoxLayout *hl = new QHBoxLayout();
+        /*QHBoxLayout *hl = new QHBoxLayout();
         QMessageBox msgBox;
         msgBox.setText("1");
         msgBox.exec();
@@ -46,14 +46,23 @@ void MyController::show() {
         msgBox.exec();
         mainWidget->show();
         msgBox.setText("6");
-        msgBox.exec();
+        msgBox.exec();*/
     //}
-}
+//}
 
-void MyController::modifyMatrix(int x, int y) {
-    model->modifyValue(x+1,y+1,table->item(x,y)->text());
-    chartView->setChart(chart->createChart());
+void MyController::modifyMatrix(int x, int y, const QString& value) {
+    model->modifyValue(x+1,y+1,value); //sistema la view, abbiamo aggiunto value
+    view->setChart(chart->createChart());
     /*QMessageBox msgBox;
     msgBox.setText(matrix->getValue(x,y));
     msgBox.exec();*/
+}
+
+void MyController::newBarChart() const {
+    QString title = "";
+    int rows = 0, columns = 0;
+    view->showStandardInputDialog(title, rows, columns);
+    QMessageBox msgBox;
+    msgBox.setText(title);
+    msgBox.exec();
 }
