@@ -33,7 +33,7 @@ private:
 
     //QWidget *mainWidget;
     QHBoxLayout* centralLayout;
-    QTableWidget *table;
+    QTableView *table;
     QChartView *chartView;
 public:
     explicit MyView(QWidget *parent = nullptr);

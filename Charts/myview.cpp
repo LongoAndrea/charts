@@ -37,7 +37,7 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
 
     //mainWidget = new QWidget(this);
     centralLayout = new QHBoxLayout();
-    table = new QTableWidget(1,1,this);
+    table = new QTableWidget(this);
     chartView = new QChartView(this);
     centralLayout->addWidget(table);
     centralLayout->addWidget(chartView);
@@ -88,6 +88,6 @@ void MyView::setTable(QTableWidget* t) {
     table = t;
     table->setParent(this);
     table->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-    //centralLayout->addWidget(table);
-    show();
+    centralLayout->addWidget(table);
+    //show();
 }
