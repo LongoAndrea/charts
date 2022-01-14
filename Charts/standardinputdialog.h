@@ -15,7 +15,7 @@ private:
     QSpinBox *columnsSpinbox;
     QDialogButtonBox *buttonBox;
 public:
-    StandardInputDialog(QWidget *parent = 0);
+    StandardInputDialog(QWidget *parent =0);
     QString getTitle() const {return titleLineEdit->text();}
     int getRows() const {return rowsSpinBox->value();}
     int getColumns() const {return columnsSpinbox->value();}

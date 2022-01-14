@@ -1,19 +1,23 @@
 #include "standardinputdialog.h"
 #include <QVBoxLayout>
+#include <QDialog>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QDialogButtonBox>
 
-StandardInputDialog::StandardInputDialog(QWidget *parent = 0) : QDialog(parent)
-{
+StandardInputDialog::StandardInputDialog(QWidget *parent) : QDialog(parent){
     titleLineEdit = new QLineEdit("Insert here the title of your chart", this);
     rowsSpinBox = new QSpinBox(this);
     columnsSpinbox = new QSpinBox(this);
     buttonBox = new QDialogButtonBox(this);
 
-    connect(buttonBox, &QDialogButtonBox::accepted, this, SLOT(onButtonBoxAccepted()));
-    connect(buttonBox, &QDialogButtonBox::rejected, this, SLOT(onButtonBoxRejected()));
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(onButtonBoxAccepted()));
+    connect(buttonBox, SIGNAL(rejected()), this, SLOT(onButtonBoxRejected()));
 
     titleLineEdit->setMaxLength(30);
     rowsSpinBox->setMinimum(1);
     columnsSpinbox->setMinimum(1);
+    buttonBox->setVisible(true);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(titleLineEdit);

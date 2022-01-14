@@ -1,4 +1,5 @@
 #include "myview.h"
+#include "mycontroller.h"
 #include "standardinputdialog.h"
 
 MyView::MyView(QWidget *parent) : QWidget(parent) {
@@ -48,6 +49,7 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
 
 void MyView::setController(MyController *c) {
     controller = c;
+
     connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT(newBarChart()));
 /*
     connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile()));
@@ -65,13 +67,13 @@ void MyView::setController(MyController *c) {
 }
 
 void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
-    StandardInputDialog dialog;
-    dialog.setWindowTitle("Insert new Chart data");
-    int res = dialog.exec();
+    StandardInputDialog *dialog = new StandardInputDialog();
+    dialog->setWindowTitle("Insert new Chart data");
+    int res = dialog->exec();
     if(res == QDialog::Rejected) return;
-    title = dialog.getTitle();
-    rows = dialog.getRows();
-    columns = dialog.getColumns();
+    title = dialog->getTitle();
+    rows = dialog->getRows();
+    columns = dialog->getColumns();
 }
 
 void MyView::setChart(QChart* c) {

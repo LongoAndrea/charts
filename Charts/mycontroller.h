@@ -14,13 +14,15 @@ private:
   MyModel *model;
   MyAbstractChart *chart;
   MyView *view;
+
 public:
-  MyController(QObject* parent = 0) : QObject(parent) {}
+  explicit MyController(QObject* parent = nullptr) : QObject(parent) {}
   //MyController(Matrix &m, QWidget &w);
   //void show();
   void setModel(MyModel *m) {model = m;}
   void setView(MyView *v) {view = v;}
   //QTableWidget* getTableWidget() {return table;} //const ???
+
 public slots:
   void modifyMatrix(int x, int y, const QString& value);
   void newBarChart() const;
