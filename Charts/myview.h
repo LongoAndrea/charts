@@ -31,6 +31,8 @@ private:
     QPushButton *newPieChartButton;
     QPushButton *newRadarChartButton;
 
+    //QWidget *mainWidget;
+    QHBoxLayout* centralLayout;
     QTableWidget *table;
     QChartView *chartView;
 public:
@@ -38,6 +40,7 @@ public:
     void setController(MyController *c);
     void showStandardInputDialog(QString& title, int& rows, int& columns);
     void setChart(QChart* c);
+    void setTable(QTableWidget* t);
 };
 
 #endif // MYVIEW_H

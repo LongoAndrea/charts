@@ -62,7 +62,14 @@ void MyController::newBarChart() const {
     QString title = "";
     int rows = 0, columns = 0;
     view->showStandardInputDialog(title, rows, columns);
-    QMessageBox msgBox;
+    /*QMessageBox msgBox;
     msgBox.setText(title);
-    msgBox.exec();
+    msgBox.exec();*/
+    model->createMatrix(title,rows+1,columns+1); //la matrix ha sempre una colonna e una riga in più
+
+    QTableWidget *table = new QTableWidget(rows,columns);
+    for(int i=1; i<rows+1; i++)
+        for(int j=1; j<columns+1; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    view->setTable(table);
 }

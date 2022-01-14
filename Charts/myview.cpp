@@ -35,13 +35,16 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
 
     vlayout->addLayout(buttonLayout);
 
-    QHBoxLayout* centralLayout = new QHBoxLayout();
-    table = new QTableWidget(this);
+    //mainWidget = new QWidget(this);
+    centralLayout = new QHBoxLayout();
+    table = new QTableWidget(1,1,this);
     chartView = new QChartView(this);
     centralLayout->addWidget(table);
     centralLayout->addWidget(chartView);
+    //mainWidget->setLayout(centralLayout);
 
     vlayout->addLayout(centralLayout);
+    //vlayout->addWidget(mainWidget);
     vlayout->setSpacing(0);
     setLayout(vlayout);
     resize(QSize(1024,720));
@@ -78,4 +81,13 @@ void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
 
 void MyView::setChart(QChart* c) {
     chartView->setChart(c);
+}
+
+void MyView::setTable(QTableWidget* t) {
+    delete table;
+    table = t;
+    table->setParent(this);
+    table->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    //centralLayout->addWidget(table);
+    show();
 }

@@ -20,3 +20,8 @@ void MyModel::deleteRow() {
 void MyModel::deleteColumn() {
     m->deleteColumn();
 }
+
+void MyModel::createMatrix(const QString& title, int r, int c) {
+    m = new Matrix(r,c, defaultValue);
+    m->insertValue(0,0,title);
+}

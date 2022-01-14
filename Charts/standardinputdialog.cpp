@@ -9,7 +9,7 @@ StandardInputDialog::StandardInputDialog(QWidget *parent) : QDialog(parent){
     titleLineEdit = new QLineEdit("Insert here the title of your chart", this);
     rowsSpinBox = new QSpinBox(this);
     columnsSpinbox = new QSpinBox(this);
-    buttonBox = new QDialogButtonBox(this);
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,this);
 
     connect(buttonBox, SIGNAL(accepted()), this, SLOT(onButtonBoxAccepted()));
     connect(buttonBox, SIGNAL(rejected()), this, SLOT(onButtonBoxRejected()));
@@ -17,7 +17,6 @@ StandardInputDialog::StandardInputDialog(QWidget *parent) : QDialog(parent){
     titleLineEdit->setMaxLength(30);
     rowsSpinBox->setMinimum(1);
     columnsSpinbox->setMinimum(1);
-    buttonBox->setVisible(true);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(titleLineEdit);
