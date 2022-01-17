@@ -6,7 +6,7 @@ class MyBarChart: virtual public MyAbstractChart
 {
 public:
     MyBarChart() =default;
-    MyBarChart(Matrix& mat): MyAbstractChart(mat){}
+    MyBarChart(const Matrix* mat): MyAbstractChart(mat){}
     virtual ~MyBarChart() = default;
     virtual QChart* createChart() const;
 

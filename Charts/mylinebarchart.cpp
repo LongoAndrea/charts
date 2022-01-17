@@ -1,7 +1,7 @@
 #include "mylinebarchart.h"
 #include "matrix.h"
 
-MyLineBarChart::MyLineBarChart(Matrix& mat, const QString& f): MyAbstractChart(mat), MyLineChart(mat,f) {}
+MyLineBarChart::MyLineBarChart(const Matrix* mat, const QString& f): MyAbstractChart(mat), MyLineChart(mat,f) {}
 
 QChart* MyLineBarChart::createChart() const {
     QChart *chart = new QChart();

@@ -16,15 +16,17 @@ private:
   MyView *view;
 
 public:
-  explicit MyController(QObject* parent = nullptr) : QObject(parent) {}
+  explicit MyController(QObject* parent = nullptr) : QObject(parent), chart(nullptr) {}
   //MyController(Matrix &m, QWidget &w);
   //void show();
   void setModel(MyModel *m) {model = m;}
   void setView(MyView *v) {view = v;}
+  void modifyMatrix(int x, int y, const QString& value);
   //QTableWidget* getTableWidget() {return table;} //const ???
 
 public slots:
-  void modifyMatrix(int x, int y, const QString& value);
-  void newBarChart() const;
+
+  void newBarChart();
+  void onCellChanged(QTableWidgetItem* item);
 };
 #endif

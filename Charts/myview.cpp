@@ -1,6 +1,7 @@
 #include "myview.h"
 #include "mycontroller.h"
 #include "standardinputdialog.h"
+#include <QTableWidget>
 
 MyView::MyView(QWidget *parent) : QWidget(parent) {
     QVBoxLayout* vlayout = new QVBoxLayout();
@@ -54,19 +55,18 @@ void MyView::setController(MyController *c) {
     controller = c;
 
     connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT(newBarChart()));
-/*
-    connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile()));
-    connect(saveFileButton,SIGNAL(clicked()),controller,SLOT(saveFile()));
-    connect(addRowButton,SIGNAL(clicked()),controller,SLOT(addRow()));
-    connect(addColumnButton,SIGNAL(clicked()),controller,SLOT(addColumn()));
-    connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT(deleteRow()));
-    connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn()));
-    connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT());*/
+    /*
+    connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile())); //longo
+    connect(saveFileButton,SIGNAL(clicked()),controller,SLOT(saveFile())); //longo
+    connect(addRowButton,SIGNAL(clicked()),controller,SLOT(addRow())); //longo
+    connect(addColumnButton,SIGNAL(clicked()),controller,SLOT(addColumn())); //longo
+    connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT(deleteRow())); //longo
+    connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn())); //longo
+    connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
+    connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
+    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
+    connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT()); //
+    connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT());//ceck*/
 }
 
 void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
@@ -81,6 +81,7 @@ void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
 
 void MyView::setChart(QChart* c) {
     chartView->setChart(c);
+
 }
 
 void MyView::setTable(QTableWidget* t) {
@@ -89,5 +90,5 @@ void MyView::setTable(QTableWidget* t) {
     table->setParent(this);
     table->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     centralLayout->addWidget(table);
-    //show();
+    connect(table,SIGNAL(itemChanged(QTableWidgetItem*)),controller,SLOT(onCellChanged(QTableWidgetItem*)));
 }

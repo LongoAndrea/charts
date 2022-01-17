@@ -24,4 +24,12 @@ void MyModel::deleteColumn() {
 void MyModel::createMatrix(const QString& title, int r, int c) {
     m = new Matrix(r,c, defaultValue);
     m->insertValue(0,0,title);
+    for(int i = 1; i < r; i++)
+        m->insertValue(i,0,QString::number(i));
+    for(int j = 1; j < c; j++)
+        m->insertValue(0,j,QString::number(j));
+}
+
+const Matrix* MyModel::getMatrix() const {
+    return m;
 }

@@ -18,6 +18,7 @@ public:
     void deleteRow();
     void deleteColumn();
     void createMatrix(const QString& title, int r, int c);
+    const Matrix* getMatrix() const;
 };
 
 #endif // MYMODEL_H

@@ -51,14 +51,14 @@
 //}
 
 void MyController::modifyMatrix(int x, int y, const QString& value) {
-    model->modifyValue(x+1,y+1,value); //sistema la view, abbiamo aggiunto value
+    model->modifyValue(x,y,value); //sistema la view, abbiamo aggiunto value
     view->setChart(chart->createChart());
     /*QMessageBox msgBox;
     msgBox.setText(matrix->getValue(x,y));
     msgBox.exec();*/
 }
 
-void MyController::newBarChart() const {
+void MyController::newBarChart() {
     QString title = "";
     int rows = 0, columns = 0;
     view->showStandardInputDialog(title, rows, columns);
@@ -72,4 +72,16 @@ void MyController::newBarChart() const {
         for(int j=1; j<columns+1; j++)
             table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
     view->setTable(table);
+    //MyAbstractChart *aux = chart;
+    //if(chart != nullptr)    delete chart; //quando il programma viene avviato, chart è nullptr
+    chart = new MyBarChart(model->getMatrix());
+    //delete aux; //controllare i delete
+    view->setChart(chart->createChart()); //chiamata polimorfa
+
+}
+
+void MyController::onCellChanged(QTableWidgetItem* item) {
+    /* PARSING */
+    modifyMatrix(item->row() + 1,item->column() + 1,item->text());
+
 }

@@ -6,10 +6,10 @@
 class MyAbstractChart
 {
 protected://per accedere alla matrice anche dalle classi figlie
-    Matrix* m;
+    const Matrix* m;
 public:
     MyAbstractChart() =default;
-    MyAbstractChart(Matrix& mat): m(&mat){}
+    MyAbstractChart(const Matrix* mat): m(mat){}
     virtual ~MyAbstractChart() = default;
     virtual QChart* createChart() const =0;
 
