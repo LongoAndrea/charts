@@ -1,6 +1,7 @@
 #include "myview.h"
 #include "mycontroller.h"
 #include "standardinputdialog.h"
+#include "dateinputdialog.h"
 #include <QTableWidget>
 
 MyView::MyView(QWidget *parent) : QWidget(parent) {
@@ -61,17 +62,18 @@ void MyView::setController(MyController *c) {
     connect(addColumnButton,SIGNAL(clicked()),controller,SLOT(addColumn())); //risolvere problema nomi identici per le colonne -> porta a non visulaizzare tutto il chart
     connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT(deleteRow()));
     connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn()));
+    connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT(newRadarChart()));
+    connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT(newLineChart()));
     /*
-    connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
-    connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
-    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
-    connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT()); //
-    connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT());//ceck*/
+    connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT());
+    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT());
+    connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT()); */
 }
 
 void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
     StandardInputDialog *dialog = new StandardInputDialog();
     dialog->setWindowTitle("Insert new Chart data");
+    dialog->setDialogLayout();
     int res = dialog->exec();
     if(res == QDialog::Rejected) return;
     title = dialog->getTitle();
@@ -79,9 +81,21 @@ void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
     columns = dialog->getColumns();
 }
 
+void MyView::showDataInputDialog(QString& title, int& rows, int& columns, QString& format, QDateTime& dateTime) {
+    DateInputDialog *dialog = new DateInputDialog();
+    dialog->setWindowTitle("Insert new Chart data");
+    dialog->setDialogLayout();
+    int res = dialog->exec();
+    if(res == QDialog::Rejected) return;
+    title = dialog->getTitle();
+    rows = dialog->getRows();
+    columns = dialog->getColumns();
+    format = dialog->getFormat();
+    dateTime = dialog->getDateTime();
+}
+
 void MyView::setChart(QChart* c) {
     chartView->setChart(c);
-
 }
 
 void MyView::setTable(QTableWidget* t) {

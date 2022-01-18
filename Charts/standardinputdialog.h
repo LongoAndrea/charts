@@ -9,7 +9,7 @@
 class StandardInputDialog : public QDialog
 {
     Q_OBJECT
-private:
+protected:
     QLineEdit *titleLineEdit;
     QSpinBox *rowsSpinBox;
     QSpinBox *columnsSpinbox;
@@ -19,7 +19,7 @@ public:
     QString getTitle() const {return titleLineEdit->text();}
     int getRows() const {return rowsSpinBox->value();}
     int getColumns() const {return columnsSpinbox->value();}
-
+    virtual void setDialogLayout();
 private slots:
     void onButtonBoxAccepted();
     void onButtonBoxRejected();

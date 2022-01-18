@@ -90,13 +90,49 @@ void MyController::newBarChart() {
     chart = new MyBarChart(model->getMatrix());
     //delete aux; //controllare i delete
     view->setChart(chart->createChart()); //chiamata polimorfa
+}
 
+void MyController::newRadarChart() {
+    QString title = "";
+    int rows = 0, columns = 0;
+    view->showStandardInputDialog(title,rows,columns);
+    model->createMatrix(title,rows+1,columns+1);
+    QTableWidget *table = new QTableWidget(rows,columns);
+    for(int i=1; i<rows+1; i++)
+        for(int j=1; j<columns+1; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    view->setTable(table);
+    chart = new MyRadarChart(model->getMatrix());
+    view->setChart(chart->createChart());
+}
+
+void MyController::newLineChart() {
+    QString title = "", format = "";
+    int rows = 0, columns = 0;
+    QDateTime dateTime;
+    view->showDataInputDialog(title, rows, columns, format, dateTime);
+    model->createMatrix(title,rows,columns);
+    QTableWidget *table = new QTableWidget(rows,columns);
+    for(int i=1; i<rows+1; i++)
+        for(int j=1; j<columns+1; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    QStringList list();
+    for(int j = 1; j < columns+1; j++) {
+        model->modifyValue(0,j,dateTime.toString(format));
+        table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
+        if(format == "yyyy")
+            dateTime.addYears(1);
+        if(format == "MM.yyyy")
+            dateTime.addMonths(1);
+    }
+    view->setTable(table);
+    chart = new MyLineChart(model->getMatrix(),format);
+    view->setChart(chart->createChart());
 }
 
 void MyController::onCellChanged(QTableWidgetItem* item) {
     /* PARSING */
     modifyMatrix(item->row() + 1,item->column() + 1,item->text());
-
 }
 
 void MyController::openFile(){

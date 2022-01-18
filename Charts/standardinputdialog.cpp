@@ -17,7 +17,9 @@ StandardInputDialog::StandardInputDialog(QWidget *parent) : QDialog(parent){
     titleLineEdit->setMaxLength(30);
     rowsSpinBox->setMinimum(1);
     columnsSpinbox->setMinimum(1);
+}
 
+void StandardInputDialog::setDialogLayout() {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(titleLineEdit);
     layout->addWidget(rowsSpinBox);

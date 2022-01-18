@@ -41,7 +41,8 @@ SOURCES += \
     xmlloader.cpp \
     mymodel.cpp \
     myview.cpp \
-    standardinputdialog.cpp
+    standardinputdialog.cpp \
+    dateinputdialog.cpp
 
 HEADERS += \
     matrix.h \
@@ -57,4 +58,5 @@ HEADERS += \
     xmlloader.h \
     mymodel.h \
     myview.h \
-    standardinputdialog.h
+    standardinputdialog.h \
+    dateinputdialog.h

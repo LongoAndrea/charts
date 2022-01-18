@@ -36,5 +36,7 @@ public slots:
   void addColumn();
   void deleteRow();
   void deleteColumn();
+  void newRadarChart();
+  void newLineChart();
 };
 #endif
