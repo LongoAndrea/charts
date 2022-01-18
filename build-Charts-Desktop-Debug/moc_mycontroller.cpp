@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MyController_t {
-    QByteArrayData data[7];
-    char stringdata0[49];
+    QByteArrayData data[12];
+    char stringdata0[121];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,16 +32,23 @@ struct qt_meta_stringdata_MyController_t {
 static const qt_meta_stringdata_MyController_t qt_meta_stringdata_MyController = {
     {
 QT_MOC_LITERAL(0, 0, 12), // "MyController"
-QT_MOC_LITERAL(1, 13, 12), // "modifyMatrix"
-QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 1), // "x"
-QT_MOC_LITERAL(4, 29, 1), // "y"
-QT_MOC_LITERAL(5, 31, 5), // "value"
-QT_MOC_LITERAL(6, 37, 11) // "newBarChart"
+QT_MOC_LITERAL(1, 13, 11), // "newBarChart"
+QT_MOC_LITERAL(2, 25, 0), // ""
+QT_MOC_LITERAL(3, 26, 13), // "onCellChanged"
+QT_MOC_LITERAL(4, 40, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(5, 58, 4), // "item"
+QT_MOC_LITERAL(6, 63, 8), // "openFile"
+QT_MOC_LITERAL(7, 72, 8), // "saveFile"
+QT_MOC_LITERAL(8, 81, 6), // "addRow"
+QT_MOC_LITERAL(9, 88, 9), // "addColumn"
+QT_MOC_LITERAL(10, 98, 9), // "deleteRow"
+QT_MOC_LITERAL(11, 108, 12) // "deleteColumn"
 
     },
-    "MyController\0modifyMatrix\0\0x\0y\0value\0"
-    "newBarChart"
+    "MyController\0newBarChart\0\0onCellChanged\0"
+    "QTableWidgetItem*\0item\0openFile\0"
+    "saveFile\0addRow\0addColumn\0deleteRow\0"
+    "deleteColumn"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +58,7 @@ static const uint qt_meta_data_MyController[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,11 +66,23 @@ static const uint qt_meta_data_MyController[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    3,   24,    2, 0x0a /* Public */,
-       6,    0,   31,    2, 0x0a /* Public */,
+       1,    0,   54,    2, 0x0a /* Public */,
+       3,    1,   55,    2, 0x0a /* Public */,
+       6,    0,   58,    2, 0x0a /* Public */,
+       7,    0,   59,    2, 0x0a /* Public */,
+       8,    0,   60,    2, 0x0a /* Public */,
+       9,    0,   61,    2, 0x0a /* Public */,
+      10,    0,   62,    2, 0x0a /* Public */,
+      11,    0,   63,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString,    3,    4,    5,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -75,8 +94,14 @@ void MyController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         MyController *_t = static_cast<MyController *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->modifyMatrix((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3]))); break;
-        case 1: _t->newBarChart(); break;
+        case 0: _t->newBarChart(); break;
+        case 1: _t->onCellChanged((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 2: _t->openFile(); break;
+        case 3: _t->saveFile(); break;
+        case 4: _t->addRow(); break;
+        case 5: _t->addColumn(); break;
+        case 6: _t->deleteRow(); break;
+        case 7: _t->deleteColumn(); break;
         default: ;
         }
     }
@@ -107,13 +132,13 @@ int MyController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 8;
     }
     return _id;
 }

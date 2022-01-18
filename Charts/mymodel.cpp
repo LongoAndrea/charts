@@ -33,3 +33,18 @@ void MyModel::createMatrix(const QString& title, int r, int c) {
 const Matrix* MyModel::getMatrix() const {
     return m;
 }
+
+
+void MyModel::openChartFile(QString& p, QString& typechart){
+    delete l;
+    l = new XmlLoader();
+    m = &(l->Open(p,typechart));
+}
+
+
+
+void MyModel::saveChartFile(QString& p, QString& typechart){
+    delete l;
+    l = new XmlLoader();
+    l->Save(*m,p,typechart);
+}

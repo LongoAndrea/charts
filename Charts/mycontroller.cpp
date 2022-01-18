@@ -1,6 +1,7 @@
 #include "mycontroller.h"
 #include "mybarchart.h"
 #include "mylinebarchart.h"
+#include "myareachart.h"
 #include "myradarchart.h"
 #include <QTableWidget>
 #include <QMessageBox>
@@ -50,6 +51,18 @@
     //}
 //}
 
+MyAbstractChart* MyController::create(QString& type){
+    if (type.endsWith("MyBarChart"))
+        return new MyBarChart(model->getMatrix());
+    //if(type.endsWith("MyAreaChart"))
+        //return new MyAreaChart(model->getMatrix());
+    //if(type.endsWith("MyLineChart"))
+        //return new MyLineChart(model->getMatrix());
+    if(type.endsWith("MyRadarChart"))
+       return new MyRadarChart(model->getMatrix());
+
+}
+
 void MyController::modifyMatrix(int x, int y, const QString& value) {
     model->modifyValue(x,y,value); //sistema la view, abbiamo aggiunto value
     view->setChart(chart->createChart());
@@ -84,4 +97,97 @@ void MyController::onCellChanged(QTableWidgetItem* item) {
     /* PARSING */
     modifyMatrix(item->row() + 1,item->column() + 1,item->text());
 
+}
+
+void MyController::openFile(){
+    QString typechart;//da vedere come gestire
+    QString path = QFileDialog::getOpenFileName(view,tr("Open File"), "/home/", tr("chart File (*.xml)"));
+    if(path != ""){
+        model->openChartFile(path,typechart);
+
+        //mostro nella vista
+        int rows = model->getMatrix()->getRows();
+        int columns = model->getMatrix()->getColumns();
+        QTableWidget *table = new QTableWidget(rows-1,columns-1);
+        for(int i=1; i<rows; i++)
+            for(int j=1; j<columns; j++)
+                table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+        view->setTable(table);
+        //in base al typechart
+        //chart = new MyBarChart(model->getMatrix());
+        chart = create(typechart);
+        view->setChart(chart->createChart()); //chiamata polimorfa
+    }
+
+}
+
+void MyController::saveFile(){
+    QString typechart = typeid(*chart).name();
+    QString path = QFileDialog::getSaveFileName(view,tr("Save File"), "/home/", tr("chart File (*.xml)"));
+    model->saveChartFile(path,typechart);
+}
+
+
+void MyController::addRow(){
+    model->addRow();
+    QString typechart = typeid(*chart).name();
+    //mostro nella vista
+    int rows = model->getMatrix()->getRows();
+    int columns = model->getMatrix()->getColumns();
+    QTableWidget *table = new QTableWidget(rows-1,columns-1);
+    for(int i=1; i<rows; i++)
+        for(int j=1; j<columns; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    view->setTable(table);
+    //in base al typechart
+    chart = create(typechart);
+    view->setChart(chart->createChart()); //chiamata polimorfa
+}
+
+void MyController::addColumn(){
+    model->addColumn();
+QString typechart = typeid(*chart).name();
+    //mostro nella vista
+    int rows = model->getMatrix()->getRows();
+    int columns = model->getMatrix()->getColumns();
+    QTableWidget *table = new QTableWidget(rows-1,columns-1);
+    for(int i=1; i<rows; i++)
+        for(int j=1; j<columns; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    view->setTable(table);
+    //in base al typechart
+    chart = create(typechart);
+    view->setChart(chart->createChart()); //chiamata polimorfa
+}
+
+void MyController::deleteRow(){
+    model->deleteRow();
+QString typechart = typeid(*chart).name();
+    //mostro nella vista
+    int rows = model->getMatrix()->getRows();
+    int columns = model->getMatrix()->getColumns();
+    QTableWidget *table = new QTableWidget(rows-1,columns-1);
+    for(int i=1; i<rows; i++)
+        for(int j=1; j<columns; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    view->setTable(table);
+    //in base al typechart
+    chart = create(typechart);
+    view->setChart(chart->createChart()); //chiamata polimorfa
+}
+
+void MyController::deleteColumn(){
+    model->deleteColumn();
+QString typechart = typeid(*chart).name();
+    //mostro nella vista
+    int rows = model->getMatrix()->getRows();
+    int columns = model->getMatrix()->getColumns();
+    QTableWidget *table = new QTableWidget(rows-1,columns-1);
+    for(int i=1; i<rows; i++)
+        for(int j=1; j<columns; j++)
+            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    view->setTable(table);
+    //in base al typechart
+    chart = create(typechart);
+    view->setChart(chart->createChart()); //chiamata polimorfa
 }

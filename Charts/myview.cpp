@@ -55,13 +55,13 @@ void MyView::setController(MyController *c) {
     controller = c;
 
     connect(newBarChartButton,SIGNAL(clicked()),controller,SLOT(newBarChart()));
+    connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile()));
+    connect(saveFileButton,SIGNAL(clicked()),controller,SLOT(saveFile()));
+    connect(addRowButton,SIGNAL(clicked()),controller,SLOT(addRow()));
+    connect(addColumnButton,SIGNAL(clicked()),controller,SLOT(addColumn())); //risolvere problema nomi identici per le colonne -> porta a non visulaizzare tutto il chart
+    connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT(deleteRow()));
+    connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn()));
     /*
-    connect(openFileButton,SIGNAL(clicked()),controller,SLOT(openFile())); //longo
-    connect(saveFileButton,SIGNAL(clicked()),controller,SLOT(saveFile())); //longo
-    connect(addRowButton,SIGNAL(clicked()),controller,SLOT(addRow())); //longo
-    connect(addColumnButton,SIGNAL(clicked()),controller,SLOT(addColumn())); //longo
-    connect(deleteRowButton,SIGNAL(clicked()),controller,SLOT(deleteRow())); //longo
-    connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn())); //longo
     connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
     connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck
     connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT()); //ceck

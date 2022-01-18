@@ -15,6 +15,8 @@ private:
   MyAbstractChart *chart;
   MyView *view;
 
+  MyAbstractChart* create(QString&);
+
 public:
   explicit MyController(QObject* parent = nullptr) : QObject(parent), chart(nullptr) {}
   //MyController(Matrix &m, QWidget &w);
@@ -28,5 +30,11 @@ public slots:
 
   void newBarChart();
   void onCellChanged(QTableWidgetItem* item);
+  void openFile();
+  void saveFile();
+  void addRow();
+  void addColumn();
+  void deleteRow();
+  void deleteColumn();
 };
 #endif

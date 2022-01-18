@@ -2,6 +2,8 @@
 #define MYMODEL_H
 
 #include "matrix.h"
+#include "loader.h"
+#include "xmlloader.h"
 #include <QString>
 
 class MyModel
@@ -9,8 +11,9 @@ class MyModel
 private:
     Matrix* m;
     static QString defaultValue;
+    Loader* l;
 public:
-    MyModel() : m() {}
+    MyModel() : m(), l() {}
     void modifyValue(int r, int c, const QString& value);
     const QString& getValue(int r, int c) const;
     void addRow();
@@ -19,6 +22,8 @@ public:
     void deleteColumn();
     void createMatrix(const QString& title, int r, int c);
     const Matrix* getMatrix() const;
+    void openChartFile(QString& p, QString& typechart);
+    void saveChartFile(QString& p, QString& typechart);
 };
 
 #endif // MYMODEL_H
