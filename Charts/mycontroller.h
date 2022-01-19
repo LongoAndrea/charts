@@ -38,5 +38,7 @@ public slots:
   void deleteColumn();
   void newRadarChart();
   void newLineChart();
+  void newAreaChart();
+  void newLineBarChart();
 };
 #endif

@@ -17,7 +17,7 @@ QChart* MyLineChart::createChart() const{
         series = new QLineSeries();
         series->setName(m->getValue(i,0));
         for(int j = 1; j < m->getColumns(); j++) {
-            QDateTime d = QDateTime::fromString(m->getValue(0,j), "dd.MM.yyyy");
+            QDateTime d = QDateTime::fromString(m->getValue(0,j), format);
             series->append(d.toMSecsSinceEpoch(), m->getValue(i,j).toInt());
         }
         chart->addSeries(series);

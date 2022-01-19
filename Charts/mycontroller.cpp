@@ -111,22 +111,70 @@ void MyController::newLineChart() {
     int rows = 0, columns = 0;
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
-    model->createMatrix(title,rows,columns);
+    model->createMatrix(title,rows+1,columns+1);
     QTableWidget *table = new QTableWidget(rows,columns);
-    for(int i=1; i<rows+1; i++)
-        for(int j=1; j<columns+1; j++)
-            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-    QStringList list();
+    for(int i=0; i<rows; i++)
+        for(int j=0; j<columns; j++)
+            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));
     for(int j = 1; j < columns+1; j++) {
         model->modifyValue(0,j,dateTime.toString(format));
         table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
         if(format == "yyyy")
-            dateTime.addYears(1);
+            dateTime = dateTime.addYears(1);
         if(format == "MM.yyyy")
-            dateTime.addMonths(1);
+            dateTime = dateTime.addMonths(1);
     }
     view->setTable(table);
-    chart = new MyLineChart(model->getMatrix(),format);
+    chart = new MyLineChart(format);
+    chart->setMatrix(model->getMatrix());
+    view->setChart(chart->createChart());
+}
+
+void MyController::newAreaChart() {
+    QString title = "", format = "";
+    int rows = 0, columns = 0;
+    QDateTime dateTime;
+    view->showDataInputDialog(title, rows, columns, format, dateTime);
+    model->createMatrix(title,rows+1,columns+1);
+    QTableWidget *table = new QTableWidget(rows,columns);
+    for(int i=0; i<rows; i++)
+        for(int j=0; j<columns; j++)
+            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));
+    for(int j = 1; j < columns+1; j++) {
+        model->modifyValue(0,j,dateTime.toString(format));
+        table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
+        if(format == "yyyy")
+            dateTime = dateTime.addYears(1);
+        if(format == "MM.yyyy")
+            dateTime = dateTime.addMonths(1);
+    }
+    view->setTable(table);
+    chart = new MyAreaChart(format);
+    chart->setMatrix(model->getMatrix());
+    view->setChart(chart->createChart());
+}
+
+void MyController::newLineBarChart() {
+    QString title = "", format = "";
+    int rows = 0, columns = 0;
+    QDateTime dateTime;
+    view->showDataInputDialog(title, rows, columns, format, dateTime);
+    model->createMatrix(title,rows+1,columns+1);
+    QTableWidget *table = new QTableWidget(rows,columns);
+    for(int i=0; i<rows; i++)
+        for(int j=0; j<columns; j++)
+            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));
+    for(int j = 1; j < columns+1; j++) {
+        model->modifyValue(0,j,dateTime.toString(format));
+        table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
+        if(format == "yyyy")
+            dateTime = dateTime.addYears(1);
+        if(format == "MM.yyyy")
+            dateTime = dateTime.addMonths(1);
+    }
+    view->setTable(table);
+    chart = new MyLineBarChart(format);
+    chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
 }
 

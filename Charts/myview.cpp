@@ -64,9 +64,9 @@ void MyView::setController(MyController *c) {
     connect(deleteColumnButton,SIGNAL(clicked()),controller,SLOT(deleteColumn()));
     connect(newRadarChartButton,SIGNAL(clicked()),controller,SLOT(newRadarChart()));
     connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT(newLineChart()));
+    connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT(newAreaChart()));
+    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT(newLineBarChart()));
     /*
-    connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT());
-    connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT());
     connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT()); */
 }
 
