@@ -3,6 +3,7 @@
 #include "standardinputdialog.h"
 #include "dateinputdialog.h"
 #include <QTableWidget>
+#include <QInputDialog>
 
 MyView::MyView(QWidget *parent) : QWidget(parent) {
     QVBoxLayout* vlayout = new QVBoxLayout();
@@ -20,6 +21,7 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
     newLineBarChartButton = new QPushButton("New LineBar Chart", this);
     newPieChartButton = new QPushButton("New Pie Chart", this);
     newRadarChartButton = new QPushButton("New Radar Chart", this);
+    //addRowButton->setEnabled(false);
     buttonLayout->addWidget(openFileButton);
     buttonLayout->addWidget(saveFileButton);
     buttonLayout->addWidget(addRowButton);
@@ -105,4 +107,9 @@ void MyView::setTable(QTableWidget* t) {
     table->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     centralLayout->addWidget(table);
     connect(table,SIGNAL(itemChanged(QTableWidgetItem*)),controller,SLOT(onCellChanged(QTableWidgetItem*)));
+}
+
+
+QString MyView::inputHeaderTableDialog(){
+    return QInputDialog::getText(this,"Input Header Table","Nome colonna:", QLineEdit::Normal);
 }

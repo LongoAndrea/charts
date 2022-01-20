@@ -64,9 +64,11 @@ SOURCES       = ../Charts/main.cpp \
 		../Charts/xmlloader.cpp \
 		../Charts/mymodel.cpp \
 		../Charts/myview.cpp \
-		../Charts/standardinputdialog.cpp moc_mycontroller.cpp \
+		../Charts/standardinputdialog.cpp \
+		../Charts/dateinputdialog.cpp moc_mycontroller.cpp \
 		moc_myview.cpp \
-		moc_standardinputdialog.cpp
+		moc_standardinputdialog.cpp \
+		moc_dateinputdialog.cpp
 OBJECTS       = main.o \
 		matrix.o \
 		myabstractchart.o \
@@ -82,9 +84,11 @@ OBJECTS       = main.o \
 		mymodel.o \
 		myview.o \
 		standardinputdialog.o \
+		dateinputdialog.o \
 		moc_mycontroller.o \
 		moc_myview.o \
-		moc_standardinputdialog.o
+		moc_standardinputdialog.o \
+		moc_dateinputdialog.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -173,7 +177,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../Charts/xmlloader.h \
 		../Charts/mymodel.h \
 		../Charts/myview.h \
-		../Charts/standardinputdialog.h ../Charts/main.cpp \
+		../Charts/standardinputdialog.h \
+		../Charts/dateinputdialog.h ../Charts/main.cpp \
 		../Charts/matrix.cpp \
 		../Charts/myabstractchart.cpp \
 		../Charts/myabstractdatechart.cpp \
@@ -187,7 +192,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../Charts/xmlloader.cpp \
 		../Charts/mymodel.cpp \
 		../Charts/myview.cpp \
-		../Charts/standardinputdialog.cpp
+		../Charts/standardinputdialog.cpp \
+		../Charts/dateinputdialog.cpp
 QMAKE_TARGET  = Charts
 DESTDIR       = 
 TARGET        = Charts
@@ -377,8 +383,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Charts/matrix.h ../Charts/myabstractchart.h ../Charts/myabstractdatechart.h ../Charts/myareachart.h ../Charts/mybarchart.h ../Charts/mycontroller.h ../Charts/mylinebarchart.h ../Charts/mylinechart.h ../Charts/myradarchart.h ../Charts/loader.h ../Charts/xmlloader.h ../Charts/mymodel.h ../Charts/myview.h ../Charts/standardinputdialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Charts/main.cpp ../Charts/matrix.cpp ../Charts/myabstractchart.cpp ../Charts/myabstractdatechart.cpp ../Charts/myareachart.cpp ../Charts/mybarchart.cpp ../Charts/mycontroller.cpp ../Charts/mylinebarchart.cpp ../Charts/mylinechart.cpp ../Charts/myradarchart.cpp ../Charts/loader.cpp ../Charts/xmlloader.cpp ../Charts/mymodel.cpp ../Charts/myview.cpp ../Charts/standardinputdialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Charts/matrix.h ../Charts/myabstractchart.h ../Charts/myabstractdatechart.h ../Charts/myareachart.h ../Charts/mybarchart.h ../Charts/mycontroller.h ../Charts/mylinebarchart.h ../Charts/mylinechart.h ../Charts/myradarchart.h ../Charts/loader.h ../Charts/xmlloader.h ../Charts/mymodel.h ../Charts/myview.h ../Charts/standardinputdialog.h ../Charts/dateinputdialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Charts/main.cpp ../Charts/matrix.cpp ../Charts/myabstractchart.cpp ../Charts/myabstractdatechart.cpp ../Charts/myareachart.cpp ../Charts/mybarchart.cpp ../Charts/mycontroller.cpp ../Charts/mylinebarchart.cpp ../Charts/mylinechart.cpp ../Charts/myradarchart.cpp ../Charts/loader.cpp ../Charts/xmlloader.cpp ../Charts/mymodel.cpp ../Charts/myview.cpp ../Charts/standardinputdialog.cpp ../Charts/dateinputdialog.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -410,11 +416,13 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mycontroller.cpp moc_myview.cpp moc_standardinputdialog.cpp
+compiler_moc_header_make_all: moc_mycontroller.cpp moc_myview.cpp moc_standardinputdialog.cpp moc_dateinputdialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mycontroller.cpp moc_myview.cpp moc_standardinputdialog.cpp
+	-$(DEL_FILE) moc_mycontroller.cpp moc_myview.cpp moc_standardinputdialog.cpp moc_dateinputdialog.cpp
 moc_mycontroller.cpp: ../Charts/matrix.h \
 		../Charts/mymodel.h \
+		../Charts/loader.h \
+		../Charts/xmlloader.h \
 		../Charts/myabstractchart.h \
 		../Charts/myview.h \
 		../Charts/mycontroller.h \
@@ -431,6 +439,12 @@ moc_standardinputdialog.cpp: ../Charts/standardinputdialog.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/progetto/Charts -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Charts/standardinputdialog.h -o moc_standardinputdialog.cpp
+
+moc_dateinputdialog.cpp: ../Charts/standardinputdialog.h \
+		../Charts/dateinputdialog.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/progetto/Charts -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtXml -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Charts/dateinputdialog.h -o moc_dateinputdialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -450,6 +464,8 @@ main.o: ../Charts/main.cpp ../Charts/myview.h \
 		../Charts/mycontroller.h \
 		../Charts/matrix.h \
 		../Charts/mymodel.h \
+		../Charts/loader.h \
+		../Charts/xmlloader.h \
 		../Charts/myabstractchart.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Charts/main.cpp
 
@@ -479,12 +495,15 @@ mybarchart.o: ../Charts/mybarchart.cpp ../Charts/matrix.h \
 mycontroller.o: ../Charts/mycontroller.cpp ../Charts/mycontroller.h \
 		../Charts/matrix.h \
 		../Charts/mymodel.h \
+		../Charts/loader.h \
+		../Charts/xmlloader.h \
 		../Charts/myabstractchart.h \
 		../Charts/myview.h \
 		../Charts/mybarchart.h \
 		../Charts/mylinebarchart.h \
 		../Charts/mylinechart.h \
 		../Charts/myabstractdatechart.h \
+		../Charts/myareachart.h \
 		../Charts/myradarchart.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mycontroller.o ../Charts/mycontroller.cpp
 
@@ -517,15 +536,28 @@ xmlloader.o: ../Charts/xmlloader.cpp ../Charts/xmlloader.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o xmlloader.o ../Charts/xmlloader.cpp
 
 mymodel.o: ../Charts/mymodel.cpp ../Charts/mymodel.h \
-		../Charts/matrix.h
+		../Charts/matrix.h \
+		../Charts/loader.h \
+		../Charts/xmlloader.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mymodel.o ../Charts/mymodel.cpp
 
 myview.o: ../Charts/myview.cpp ../Charts/myview.h \
-		../Charts/standardinputdialog.h
+		../Charts/mycontroller.h \
+		../Charts/matrix.h \
+		../Charts/mymodel.h \
+		../Charts/loader.h \
+		../Charts/xmlloader.h \
+		../Charts/myabstractchart.h \
+		../Charts/standardinputdialog.h \
+		../Charts/dateinputdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myview.o ../Charts/myview.cpp
 
 standardinputdialog.o: ../Charts/standardinputdialog.cpp ../Charts/standardinputdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o standardinputdialog.o ../Charts/standardinputdialog.cpp
+
+dateinputdialog.o: ../Charts/dateinputdialog.cpp ../Charts/dateinputdialog.h \
+		../Charts/standardinputdialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dateinputdialog.o ../Charts/dateinputdialog.cpp
 
 moc_mycontroller.o: moc_mycontroller.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mycontroller.o moc_mycontroller.cpp
@@ -535,6 +567,9 @@ moc_myview.o: moc_myview.cpp
 
 moc_standardinputdialog.o: moc_standardinputdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_standardinputdialog.o moc_standardinputdialog.cpp
+
+moc_dateinputdialog.o: moc_dateinputdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dateinputdialog.o moc_dateinputdialog.cpp
 
 ####### Install
 

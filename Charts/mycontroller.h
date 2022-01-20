@@ -16,6 +16,7 @@ private:
   MyView *view;
 
   MyAbstractChart* create(QString&);
+  void updateTable();
 
 public:
   explicit MyController(QObject* parent = nullptr) : QObject(parent), chart(nullptr) {}

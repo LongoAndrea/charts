@@ -75,16 +75,9 @@ void MyController::newBarChart() {
     QString title = "";
     int rows = 0, columns = 0;
     view->showStandardInputDialog(title, rows, columns);
-    /*QMessageBox msgBox;
-    msgBox.setText(title);
-    msgBox.exec();*/
     model->createMatrix(title,rows+1,columns+1); //la matrix ha sempre una colonna e una riga in più
 
-    QTableWidget *table = new QTableWidget(rows,columns);
-    for(int i=1; i<rows+1; i++)
-        for(int j=1; j<columns+1; j++)
-            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-    view->setTable(table);
+    updateTable();
     //MyAbstractChart *aux = chart;
     //if(chart != nullptr)    delete chart; //quando il programma viene avviato, chart è nullptr
     chart = new MyBarChart(model->getMatrix());
@@ -97,11 +90,7 @@ void MyController::newRadarChart() {
     int rows = 0, columns = 0;
     view->showStandardInputDialog(title,rows,columns);
     model->createMatrix(title,rows+1,columns+1);
-    QTableWidget *table = new QTableWidget(rows,columns);
-    for(int i=1; i<rows+1; i++)
-        for(int j=1; j<columns+1; j++)
-            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-    view->setTable(table);
+    updateTable();
     chart = new MyRadarChart(model->getMatrix());
     view->setChart(chart->createChart());
 }
@@ -112,19 +101,20 @@ void MyController::newLineChart() {
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
     model->createMatrix(title,rows+1,columns+1);
-    QTableWidget *table = new QTableWidget(rows,columns);
+    /*QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
         for(int j=0; j<columns; j++)
-            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));
+            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));*/
     for(int j = 1; j < columns+1; j++) {
         model->modifyValue(0,j,dateTime.toString(format));
-        table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
+        //table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
         if(format == "yyyy")
             dateTime = dateTime.addYears(1);
         if(format == "MM.yyyy")
             dateTime = dateTime.addMonths(1);
     }
-    view->setTable(table);
+    updateTable();
+    //view->setTable(table);
     chart = new MyLineChart(format);
     chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
@@ -136,19 +126,20 @@ void MyController::newAreaChart() {
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
     model->createMatrix(title,rows+1,columns+1);
-    QTableWidget *table = new QTableWidget(rows,columns);
+    /*QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
         for(int j=0; j<columns; j++)
-            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));
+            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));*/
     for(int j = 1; j < columns+1; j++) {
         model->modifyValue(0,j,dateTime.toString(format));
-        table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
+        //table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
         if(format == "yyyy")
             dateTime = dateTime.addYears(1);
         if(format == "MM.yyyy")
             dateTime = dateTime.addMonths(1);
     }
-    view->setTable(table);
+    updateTable();
+    //view->setTable(table);
     chart = new MyAreaChart(format);
     chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
@@ -160,19 +151,22 @@ void MyController::newLineBarChart() {
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
     model->createMatrix(title,rows+1,columns+1);
+    /*
     QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
         for(int j=0; j<columns; j++)
-            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));
+            table->setItem(i,j,new QTableWidgetItem(model->getValue(i+1,j+1)));*/
+
     for(int j = 1; j < columns+1; j++) {
         model->modifyValue(0,j,dateTime.toString(format));
-        table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
+        //table->setHorizontalHeaderItem(j-1,new QTableWidgetItem(dateTime.toString(format)));
         if(format == "yyyy")
             dateTime = dateTime.addYears(1);
         if(format == "MM.yyyy")
             dateTime = dateTime.addMonths(1);
     }
-    view->setTable(table);
+    updateTable();
+    //view->setTable(table);
     chart = new MyLineBarChart(format);
     chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
@@ -190,15 +184,7 @@ void MyController::openFile(){
         model->openChartFile(path,typechart);
 
         //mostro nella vista
-        int rows = model->getMatrix()->getRows();
-        int columns = model->getMatrix()->getColumns();
-        QTableWidget *table = new QTableWidget(rows-1,columns-1);
-        for(int i=1; i<rows; i++)
-            for(int j=1; j<columns; j++)
-                table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-        view->setTable(table);
-        //in base al typechart
-        //chart = new MyBarChart(model->getMatrix());
+        updateTable();
         chart = create(typechart);
         view->setChart(chart->createChart()); //chiamata polimorfa
     }
@@ -213,65 +199,72 @@ void MyController::saveFile(){
 
 
 void MyController::addRow(){
+
     model->addRow();
-    QString typechart = typeid(*chart).name();
+    model->modifyValue(model->getMatrix()->getRows()-1,0,view->inputHeaderTableDialog());
     //mostro nella vista
-    int rows = model->getMatrix()->getRows();
-    int columns = model->getMatrix()->getColumns();
-    QTableWidget *table = new QTableWidget(rows-1,columns-1);
-    for(int i=1; i<rows; i++)
-        for(int j=1; j<columns; j++)
-            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-    view->setTable(table);
-    //in base al typechart
-    chart = create(typechart);
+    updateTable();
     view->setChart(chart->createChart()); //chiamata polimorfa
 }
 
 void MyController::addColumn(){
     model->addColumn();
-QString typechart = typeid(*chart).name();
-    //mostro nella vista
     int rows = model->getMatrix()->getRows();
     int columns = model->getMatrix()->getColumns();
-    QTableWidget *table = new QTableWidget(rows-1,columns-1);
-    for(int i=1; i<rows; i++)
-        for(int j=1; j<columns; j++)
-            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-    view->setTable(table);
-    //in base al typechart
-    chart = create(typechart);
+    MyAbstractDateChart* ptr = dynamic_cast<MyAbstractDateChart*>(chart);
+    if(ptr !=nullptr)
+    {
+        //sono datechart
+        QString format = ptr->getFormat();
+        QDateTime lastDate = QDateTime::fromString(model->getValue(0,columns-2),format);
+        if(format == "yyyy")
+            lastDate = lastDate.addYears(1);
+        if(format == "MM.yyyy")
+            lastDate = lastDate.addMonths(1);
+        model->modifyValue(0,columns-1,lastDate.toString(format));
+    }
+    else
+        //sono un chart senza date
+        //mostro nella vista
+        model->modifyValue(0,columns-1,view->inputHeaderTableDialog());
+    updateTable();
     view->setChart(chart->createChart()); //chiamata polimorfa
+
 }
 
 void MyController::deleteRow(){
-    model->deleteRow();
-QString typechart = typeid(*chart).name();
+    model->deleteRow();/*
+    if(model->getMatrix()->getRows() == 1){
+        QMessageBox msgBox;
+        msgBox.setText("non puoi cancellare");
+        return;
+    }*/
     //mostro nella vista
-    int rows = model->getMatrix()->getRows();
-    int columns = model->getMatrix()->getColumns();
-    QTableWidget *table = new QTableWidget(rows-1,columns-1);
-    for(int i=1; i<rows; i++)
-        for(int j=1; j<columns; j++)
-            table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
-    view->setTable(table);
-    //in base al typechart
-    chart = create(typechart);
+    updateTable();
     view->setChart(chart->createChart()); //chiamata polimorfa
 }
 
 void MyController::deleteColumn(){
     model->deleteColumn();
-QString typechart = typeid(*chart).name();
     //mostro nella vista
+    updateTable();
+    view->setChart(chart->createChart()); //chiamata polimorfa
+}
+
+
+void MyController::updateTable(){
     int rows = model->getMatrix()->getRows();
     int columns = model->getMatrix()->getColumns();
     QTableWidget *table = new QTableWidget(rows-1,columns-1);
     for(int i=1; i<rows; i++)
         for(int j=1; j<columns; j++)
             table->setItem(i-1,j-1,new QTableWidgetItem(model->getValue(i,j)));
+    //valori header table
+    for(int i=0; i < rows-1; ++i)
+        table->setVerticalHeaderItem(i,new QTableWidgetItem(model->getValue(i+1,0)));
+
+    for(int i=0; i < columns-1; ++i)
+        table->setHorizontalHeaderItem(i,new QTableWidgetItem(model->getValue(0,i+1)));
+
     view->setTable(table);
-    //in base al typechart
-    chart = create(typechart);
-    view->setChart(chart->createChart()); //chiamata polimorfa
 }
