@@ -42,7 +42,7 @@ public:
     void showDataInputDialog(QString& title, int& rows, int& columns, QString& format, QDateTime& dateTime);
     void setChart(QChart* c);
     void setTable(QTableWidget* t);
-    QString inputHeaderTableDialog();
+    QString inputHeaderTableDialog(const QString& label);
 };
 
 #endif // MYVIEW_H

@@ -17,6 +17,9 @@ private:
 
   MyAbstractChart* create(QString&);
   void updateTable();
+  void newTableHeaders(int rows, int columns);
+  void insertTableHeader(int k, const QString& id, const QString& label);
+  bool checkHeader(const QString& id, const QString& value);
 
 public:
   explicit MyController(QObject* parent = nullptr) : QObject(parent), chart(nullptr) {}
