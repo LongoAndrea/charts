@@ -15,7 +15,7 @@ private:
   MyAbstractChart *chart;
   MyView *view;
 
-  MyAbstractChart* create(QString&);
+  MyAbstractChart* create(QString&,QString&);
   void updateTable();
   void newTableHeaders(int rows, int columns);
   void insertTableHeader(int k, const QString& id, const QString& label);
@@ -44,5 +44,6 @@ public slots:
   void newLineChart();
   void newAreaChart();
   void newLineBarChart();
+  void newPieChart();
 };
 #endif

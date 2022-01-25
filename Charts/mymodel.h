@@ -22,8 +22,8 @@ public:
     void deleteColumn();
     void createMatrix(const QString& title, int r, int c);
     const Matrix* getMatrix() const;
-    void openChartFile(QString& p, QString& typechart);
-    void saveChartFile(QString& p, QString& typechart);
+    void openChartFile(QString& p, QString& typechart, QString&,bool&);
+    void saveChartFile(QString& p, QString& typechart,QString&);
 };
 
 #endif // MYMODEL_H

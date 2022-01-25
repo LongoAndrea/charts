@@ -35,16 +35,16 @@ const Matrix* MyModel::getMatrix() const {
 }
 
 
-void MyModel::openChartFile(QString& p, QString& typechart){
+void MyModel::openChartFile(QString& p, QString& typechart, QString& dateformat,bool& error){
     delete l;
     l = new XmlLoader();
-    m = &(l->Open(p,typechart));
+    m = &(l->Open(p,typechart,dateformat,error));
 }
 
 
 
-void MyModel::saveChartFile(QString& p, QString& typechart){
+void MyModel::saveChartFile(QString& p, QString& typechart,QString& dateformat){
     delete l;
     l = new XmlLoader();
-    l->Save(*m,p,typechart);
+    l->Save(*m,p,typechart,dateformat);
 }

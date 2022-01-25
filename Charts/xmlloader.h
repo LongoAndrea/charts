@@ -9,8 +9,8 @@ class XmlLoader: public Loader
 {
 public:
     XmlLoader();
-    Matrix& Open(QString&,QString&);
-    void Save(const Matrix&, QString&,QString&);
+    Matrix& Open(QString&,QString&,QString&,bool&);
+    void Save(const Matrix&, QString&,QString&,QString&);
 
 };
 

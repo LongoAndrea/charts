@@ -10,8 +10,8 @@ class Loader
 public:
     Loader() = default;
     virtual ~Loader() = default;
-    virtual Matrix& Open(QString&, QString&) =0 ;
-    virtual void Save(const Matrix&, QString&, QString&) =0 ;
+    virtual Matrix& Open(QString&, QString&,QString&,bool&) =0 ;
+    virtual void Save(const Matrix&, QString&, QString&,QString&) =0 ;
 
 };
 

@@ -34,7 +34,7 @@ QChart* MyBarChart::createChart() const {
         }
 
         chart->addSeries(series);
-        chart->setTitle("Simple barchart example");
+        chart->setTitle(m->getValue(0,0));
         chart->setAnimationOptions(QChart::SeriesAnimations);
 
 
