@@ -89,7 +89,8 @@ void MyController::modifyMatrix(int x, int y, const QString& value) {
 void MyController::newBarChart() {
     QString title = "";
     int rows = 0, columns = 0;
-    view->showStandardInputDialog(title, rows, columns);
+    if(!view->showStandardInputDialog(title, rows, columns))
+        return;
     model->createMatrix(title,1,1);
     newTableHeaders(rows,columns);
     updateTable();
@@ -104,8 +105,9 @@ void MyController::newBarChart() {
 void MyController::newRadarChart() {
     QString title = "";
     int rows = 0, columns = 0;
-    view->showStandardInputDialog(title,rows,columns);
-    model->createMatrix(title,rows+1,columns+1);
+    if(!view->showStandardInputDialog(title,rows,columns))
+        return;
+    model->createMatrix(title,1,1);
     newTableHeaders(rows,columns);
     updateTable();
     chart = new MyRadarChart(model->getMatrix());
@@ -117,7 +119,8 @@ void MyController::newLineChart() {
     QString title = "", format = "";
     int rows = 0, columns = 0;
     QDateTime dateTime;
-    view->showDataInputDialog(title, rows, columns, format, dateTime);
+    if(!view->showDataInputDialog(title, rows, columns, format, dateTime))
+        return;
     model->createMatrix(title,1,columns+1);
     /*QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
@@ -145,7 +148,8 @@ void MyController::newAreaChart() {
     QString title = "", format = "";
     int rows = 0, columns = 0;
     QDateTime dateTime;
-    view->showDataInputDialog(title, rows, columns, format, dateTime);
+    if(!view->showDataInputDialog(title, rows, columns, format, dateTime))
+        return;
     model->createMatrix(title,1,columns+1);
     /*QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
@@ -173,7 +177,8 @@ void MyController::newLineBarChart() {
     QString title = "", format = "";
     int rows = 0, columns = 0;
     QDateTime dateTime;
-    view->showDataInputDialog(title, rows, columns, format, dateTime);
+    if(!view->showDataInputDialog(title, rows, columns, format, dateTime))
+        return;
     model->createMatrix(title,1,columns+1);
     /*
     QTableWidget *table = new QTableWidget(rows,columns);
@@ -202,8 +207,10 @@ void MyController::newLineBarChart() {
 void MyController::newPieChart(){
     QString title = "";
     int rows = 0, columns = 0;
-    view->showStandardInputDialog(title, rows, columns);
-    model->createMatrix(title,rows+1,columns+1); //la matrix ha sempre una colonna e una riga in più
+    if(!view->showStandardInputDialog(title, rows, columns))
+        return;
+    model->createMatrix(title,1,1); //la matrix ha sempre una colonna e una riga in più
+    newTableHeaders(rows,columns);
     updateTable();
     chart = new MyPieChart(model->getMatrix());    
     view->setChart(chart->createChart()); //chiamata polimorfa
@@ -331,28 +338,40 @@ void MyController::newTableHeaders(int rows, int columns) {
 
 void MyController::insertTableHeader(int k, const QString& id, const QString& label) {
     bool checkValue = true;
-    while(checkValue) {
+    bool checknull = true;
+    while(checkValue || checknull) {
         QString value = view->inputHeaderTableDialog(label);
         checkValue = checkHeader(id,value);
+        checknull = value == "";
         if(id == "r") {
-            if(!checkValue) {
+            if(!checkValue && !checknull) {
                 model->addRow();
                 model->modifyValue(k,0,value);
             }
-            else {
+            else if(checkValue){
                 QMessageBox b;
                 b.setText("Row title already used!");
                 b.exec();
             }
+            else if(checknull){
+                QMessageBox b;
+                b.setText("Invalid Value!");
+                b.exec();
+            }
         }
         else {
-            if(!checkValue) {
+            if(!checkValue && !checknull) {
                 model->addColumn();
                 model->modifyValue(0,k,value);
             }
-            else {
+            else if(checkValue){
                 QMessageBox b;
                 b.setText("Column title already used!");
+                b.exec();
+            }
+            else if(checknull){
+                QMessageBox b;
+                b.setText("Invalid Value!");
                 b.exec();
             }
         }

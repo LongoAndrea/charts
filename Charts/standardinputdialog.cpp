@@ -4,9 +4,10 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QDialogButtonBox>
+#include <QLabel>
 
 StandardInputDialog::StandardInputDialog(QWidget *parent) : QDialog(parent){
-    titleLineEdit = new QLineEdit("Insert here the title of your chart", this);
+    titleLineEdit = new QLineEdit("", this);
     rowsSpinBox = new QSpinBox(this);
     columnsSpinbox = new QSpinBox(this);
     buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,this);
@@ -21,8 +22,12 @@ StandardInputDialog::StandardInputDialog(QWidget *parent) : QDialog(parent){
 
 void StandardInputDialog::setDialogLayout() {
     QVBoxLayout *layout = new QVBoxLayout(this);
+
+    layout->addWidget(new QLabel("Title:",this));
     layout->addWidget(titleLineEdit);
+    layout->addWidget(new QLabel("Rows:",this));
     layout->addWidget(rowsSpinBox);
+    layout->addWidget(new QLabel("Columns:",this));
     layout->addWidget(columnsSpinbox);
     layout->addWidget(buttonBox);
 

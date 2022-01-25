@@ -1,5 +1,6 @@
 #include "dateinputdialog.h"
 #include <QVBoxLayout>
+#include <QLabel>
 
 DateInputDialog::DateInputDialog(QWidget* parent) : StandardInputDialog(parent)
 {
@@ -12,10 +13,15 @@ DateInputDialog::DateInputDialog(QWidget* parent) : StandardInputDialog(parent)
 
 void DateInputDialog::setDialogLayout() {
     QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->addWidget(new QLabel("Title:",this));
     layout->addWidget(titleLineEdit);
+    layout->addWidget(new QLabel("Rows:",this));
     layout->addWidget(rowsSpinBox);
+    layout->addWidget(new QLabel("Columns:",this));
     layout->addWidget(columnsSpinbox);
+     layout->addWidget(new QLabel("Date Format:",this));
     layout->addWidget(selectFormatComboBox);
+     layout->addWidget(new QLabel("Start Date:",this));
     layout->addWidget(startDateTimeEdit);
     layout->addWidget(buttonBox);
 
@@ -33,3 +39,12 @@ QString DateInputDialog::getFormat() {
 QDateTime DateInputDialog::getDateTime() {
     return startDateTimeEdit->dateTime();
 }
+
+void DateInputDialog::onButtonBoxAccepted() {
+    accept();
+}
+void DateInputDialog::onButtonBoxRejected() {
+    reject();
+}
+
+

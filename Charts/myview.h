@@ -39,8 +39,8 @@ private:
 public:
     explicit MyView(QWidget *parent = nullptr);
     void setController(MyController *c);
-    void showStandardInputDialog(QString& title, int& rows, int& columns);
-    void showDataInputDialog(QString& title, int& rows, int& columns, QString& format, QDateTime& dateTime);
+    bool showStandardInputDialog(QString& title, int& rows, int& columns);
+    bool showDataInputDialog(QString& title, int& rows, int& columns, QString& format, QDateTime& dateTime);
     void setChart(QChart* c);
     void setTable(QTableWidget* t);
 

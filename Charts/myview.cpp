@@ -74,28 +74,30 @@ void MyView::setController(MyController *c) {
     connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT(newPieChart()));
 }
 
-void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
+bool MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
     StandardInputDialog *dialog = new StandardInputDialog();
     dialog->setWindowTitle("Insert new Chart data");
     dialog->setDialogLayout();
     int res = dialog->exec();
-    if(res == QDialog::Rejected) return;
+    if(res == QDialog::Rejected) return false;
     title = dialog->getTitle();
     rows = dialog->getRows();
     columns = dialog->getColumns();
+    return true;
 }
 
-void MyView::showDataInputDialog(QString& title, int& rows, int& columns, QString& format, QDateTime& dateTime) {
+bool MyView::showDataInputDialog(QString& title, int& rows, int& columns, QString& format, QDateTime& dateTime) {
     DateInputDialog *dialog = new DateInputDialog();
     dialog->setWindowTitle("Insert new Chart data");
     dialog->setDialogLayout();
     int res = dialog->exec();
-    if(res == QDialog::Rejected) return;
+    if(res == QDialog::Rejected) return false;
     title = dialog->getTitle();
     rows = dialog->getRows();
     columns = dialog->getColumns();
     format = dialog->getFormat();
     dateTime = dialog->getDateTime();
+    return true;
 }
 
 void MyView::setChart(QChart* c) {

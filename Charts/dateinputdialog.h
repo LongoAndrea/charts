@@ -17,6 +17,11 @@ public:
     QString getFormat();
     QDateTime getDateTime();
     virtual void setDialogLayout();
+protected slots:
+    void onButtonBoxAccepted();
+    void onButtonBoxRejected();
+
+
 };
 
 #endif // DATEINPUTDIALOG_H
