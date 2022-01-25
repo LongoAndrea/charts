@@ -35,6 +35,7 @@ private:
     QHBoxLayout* centralLayout;
     QTableWidget *table;
     QChartView *chartView;
+
 public:
     explicit MyView(QWidget *parent = nullptr);
     void setController(MyController *c);
@@ -43,6 +44,8 @@ public:
     void setChart(QChart* c);
     void setTable(QTableWidget* t);
     QString inputHeaderTableDialog();
+    void hideModifyButtons();
+    void showModifyButtons();
 };
 
 #endif // MYVIEW_H

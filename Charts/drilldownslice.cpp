@@ -28,11 +28,11 @@ QAbstractSeries *DrilldownSlice::drilldownSeries() const
 void DrilldownSlice::updateLabel()
 {
     QString label = m_prefix;
-
-    label += QString::number(this->value());
-    label += ", ";
+    label += " ";
+    //label += QString::number(this->value());
+    //label += " , ";
     label += QString::number(this->percentage() * 100, 'f', 1);
-    label += "%";
+    label += "% ";
     setLabel(label);
 }
 

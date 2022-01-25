@@ -42,7 +42,10 @@ SOURCES += \
     mymodel.cpp \
     myview.cpp \
     standardinputdialog.cpp \
-    dateinputdialog.cpp
+    dateinputdialog.cpp \
+    drilldownchart.cpp \
+    drilldownslice.cpp \
+    mypiechart.cpp
 
 HEADERS += \
     matrix.h \
@@ -59,4 +62,7 @@ HEADERS += \
     mymodel.h \
     myview.h \
     standardinputdialog.h \
-    dateinputdialog.h
+    dateinputdialog.h \
+    drilldownchart.h \
+    drilldownslice.h \
+    mypiechart.h

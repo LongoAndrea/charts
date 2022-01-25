@@ -3,6 +3,7 @@
 #include "mylinebarchart.h"
 #include "myareachart.h"
 #include "myradarchart.h"
+#include "mypiechart.h"
 #include <QTableWidget>
 #include <QMessageBox>
 #include <QHBoxLayout>
@@ -51,15 +52,29 @@
     //}
 //}
 
-MyAbstractChart* MyController::create(QString& type){
+MyAbstractChart* MyController::create(QString& type,QString& dateformat){
     if (type.endsWith("MyBarChart"))
         return new MyBarChart(model->getMatrix());
-    //if(type.endsWith("MyAreaChart"))
-        //return new MyAreaChart(model->getMatrix());
-    //if(type.endsWith("MyLineChart"))
-        //return new MyLineChart(model->getMatrix());
+    if (type.endsWith("MyPieChart"))
+        return new MyPieChart(model->getMatrix());
+    if(type.endsWith("MyAreaChart")){
+        MyAreaChart* tmp = new MyAreaChart(dateformat);
+        tmp->setMatrix(model->getMatrix());
+        return tmp;
+    }
+    if(type.endsWith("MyLineChart")){
+        MyLineChart* tmp = new MyLineChart(dateformat);
+        tmp->setMatrix(model->getMatrix());
+        return tmp;
+    }
+    if(type.endsWith("MyLineBarChart")){
+        MyLineBarChart* tmp = new MyLineBarChart(dateformat);
+        tmp->setMatrix(model->getMatrix());
+        return tmp;
+    }
     if(type.endsWith("MyRadarChart"))
        return new MyRadarChart(model->getMatrix());
+
 
 }
 
@@ -83,6 +98,7 @@ void MyController::newBarChart() {
     chart = new MyBarChart(model->getMatrix());
     //delete aux; //controllare i delete
     view->setChart(chart->createChart()); //chiamata polimorfa
+    view->showModifyButtons();
 }
 
 void MyController::newRadarChart() {
@@ -93,6 +109,7 @@ void MyController::newRadarChart() {
     updateTable();
     chart = new MyRadarChart(model->getMatrix());
     view->setChart(chart->createChart());
+    view->showModifyButtons();
 }
 
 void MyController::newLineChart() {
@@ -118,6 +135,7 @@ void MyController::newLineChart() {
     chart = new MyLineChart(format);
     chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
+    view->showModifyButtons();
 }
 
 void MyController::newAreaChart() {
@@ -143,6 +161,7 @@ void MyController::newAreaChart() {
     chart = new MyAreaChart(format);
     chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
+    view->showModifyButtons();
 }
 
 void MyController::newLineBarChart() {
@@ -170,6 +189,18 @@ void MyController::newLineBarChart() {
     chart = new MyLineBarChart(format);
     chart->setMatrix(model->getMatrix());
     view->setChart(chart->createChart());
+    view->showModifyButtons();
+}
+
+void MyController::newPieChart(){
+    QString title = "";
+    int rows = 0, columns = 0;
+    view->showStandardInputDialog(title, rows, columns);
+    model->createMatrix(title,rows+1,columns+1); //la matrix ha sempre una colonna e una riga in più
+    updateTable();
+    chart = new MyPieChart(model->getMatrix());    
+    view->setChart(chart->createChart()); //chiamata polimorfa
+    view->showModifyButtons();
 }
 
 void MyController::onCellChanged(QTableWidgetItem* item) {
@@ -178,23 +209,37 @@ void MyController::onCellChanged(QTableWidgetItem* item) {
 }
 
 void MyController::openFile(){
-    QString typechart;//da vedere come gestire
+    QString typechart;
+    QString dateformat;
+    bool error=false;
     QString path = QFileDialog::getOpenFileName(view,tr("Open File"), "/home/", tr("chart File (*.xml)"));
     if(path != ""){
-        model->openChartFile(path,typechart);
 
+        model->openChartFile(path,typechart,dateformat,error);
+        if(error){
+
+                QMessageBox msgBox;
+                msgBox.setText("Errore riscontrato nella lettura del file.\n");
+                msgBox.exec();
+
+        }
         //mostro nella vista
         updateTable();
-        chart = create(typechart);
+        chart = create(typechart,dateformat);
         view->setChart(chart->createChart()); //chiamata polimorfa
+        view->showModifyButtons();
     }
 
 }
 
 void MyController::saveFile(){
     QString typechart = typeid(*chart).name();
+    QString dateformat = "null";
+    MyAbstractDateChart* p = dynamic_cast<MyAbstractDateChart*>(chart);
+    if(p!=nullptr)
+        dateformat = p->getFormat();
     QString path = QFileDialog::getSaveFileName(view,tr("Save File"), "/home/", tr("chart File (*.xml)"));
-    model->saveChartFile(path,typechart);
+    model->saveChartFile(path,typechart,dateformat);
 }
 
 

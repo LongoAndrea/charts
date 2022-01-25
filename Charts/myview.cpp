@@ -47,6 +47,8 @@ MyView::MyView(QWidget *parent) : QWidget(parent) {
     centralLayout->addWidget(chartView);
     //mainWidget->setLayout(centralLayout);
 
+    hideModifyButtons();
+
     vlayout->addLayout(centralLayout);
     //vlayout->addWidget(mainWidget);
     vlayout->setSpacing(0);
@@ -68,8 +70,8 @@ void MyView::setController(MyController *c) {
     connect(newLineChartButton,SIGNAL(clicked()),controller,SLOT(newLineChart()));
     connect(newAreaChartButton,SIGNAL(clicked()),controller,SLOT(newAreaChart()));
     connect(newLineBarChartButton,SIGNAL(clicked()),controller,SLOT(newLineBarChart()));
-    /*
-    connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT()); */
+
+    connect(newPieChartButton,SIGNAL(clicked()),controller,SLOT(newPieChart()));
 }
 
 void MyView::showStandardInputDialog(QString& title, int& rows, int& columns) {
@@ -112,4 +114,19 @@ void MyView::setTable(QTableWidget* t) {
 
 QString MyView::inputHeaderTableDialog(){
     return QInputDialog::getText(this,"Input Header Table","Nome colonna:", QLineEdit::Normal);
+}
+
+
+void MyView::hideModifyButtons(){
+    addRowButton->setEnabled(false);
+    addColumnButton->setEnabled(false);
+    deleteRowButton->setEnabled(false);
+    deleteColumnButton->setEnabled(false);
+}
+
+void MyView::showModifyButtons(){
+    addRowButton->setEnabled(true);
+    addColumnButton->setEnabled(true);
+    deleteRowButton->setEnabled(true);
+    deleteColumnButton->setEnabled(true);
 }

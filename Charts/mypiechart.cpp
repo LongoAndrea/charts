@@ -21,7 +21,7 @@ QChart* MyPieChart::createChart() const{
 
         //prendo i nomi delle righe (prima colonna)
         QStringList nomeRighe;
-        for(int i=1 ; i< m->getColumns();i++){
+        for(int i=1 ; i< m->getRows();i++){
             nomeRighe.append(m->getValue(i,0));
         }
 

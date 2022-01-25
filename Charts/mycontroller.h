@@ -15,7 +15,7 @@ private:
   MyAbstractChart *chart;
   MyView *view;
 
-  MyAbstractChart* create(QString&);
+  MyAbstractChart* create(QString&,QString&);
   void updateTable();
 
 public:
@@ -41,5 +41,6 @@ public slots:
   void newLineChart();
   void newAreaChart();
   void newLineBarChart();
+  void newPieChart();
 };
 #endif

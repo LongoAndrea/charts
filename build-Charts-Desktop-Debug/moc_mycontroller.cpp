@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MyController_t {
-    QByteArrayData data[16];
-    char stringdata0[177];
+    QByteArrayData data[17];
+    char stringdata0[189];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,14 +46,15 @@ QT_MOC_LITERAL(11, 108, 12), // "deleteColumn"
 QT_MOC_LITERAL(12, 121, 13), // "newRadarChart"
 QT_MOC_LITERAL(13, 135, 12), // "newLineChart"
 QT_MOC_LITERAL(14, 148, 12), // "newAreaChart"
-QT_MOC_LITERAL(15, 161, 15) // "newLineBarChart"
+QT_MOC_LITERAL(15, 161, 15), // "newLineBarChart"
+QT_MOC_LITERAL(16, 177, 11) // "newPieChart"
 
     },
     "MyController\0newBarChart\0\0onCellChanged\0"
     "QTableWidgetItem*\0item\0openFile\0"
     "saveFile\0addRow\0addColumn\0deleteRow\0"
     "deleteColumn\0newRadarChart\0newLineChart\0"
-    "newAreaChart\0newLineBarChart"
+    "newAreaChart\0newLineBarChart\0newPieChart"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,7 +64,7 @@ static const uint qt_meta_data_MyController[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,22 +72,24 @@ static const uint qt_meta_data_MyController[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   74,    2, 0x0a /* Public */,
-       3,    1,   75,    2, 0x0a /* Public */,
-       6,    0,   78,    2, 0x0a /* Public */,
-       7,    0,   79,    2, 0x0a /* Public */,
-       8,    0,   80,    2, 0x0a /* Public */,
-       9,    0,   81,    2, 0x0a /* Public */,
-      10,    0,   82,    2, 0x0a /* Public */,
-      11,    0,   83,    2, 0x0a /* Public */,
-      12,    0,   84,    2, 0x0a /* Public */,
-      13,    0,   85,    2, 0x0a /* Public */,
-      14,    0,   86,    2, 0x0a /* Public */,
-      15,    0,   87,    2, 0x0a /* Public */,
+       1,    0,   79,    2, 0x0a /* Public */,
+       3,    1,   80,    2, 0x0a /* Public */,
+       6,    0,   83,    2, 0x0a /* Public */,
+       7,    0,   84,    2, 0x0a /* Public */,
+       8,    0,   85,    2, 0x0a /* Public */,
+       9,    0,   86,    2, 0x0a /* Public */,
+      10,    0,   87,    2, 0x0a /* Public */,
+      11,    0,   88,    2, 0x0a /* Public */,
+      12,    0,   89,    2, 0x0a /* Public */,
+      13,    0,   90,    2, 0x0a /* Public */,
+      14,    0,   91,    2, 0x0a /* Public */,
+      15,    0,   92,    2, 0x0a /* Public */,
+      16,    0,   93,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -119,6 +122,7 @@ void MyController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 9: _t->newLineChart(); break;
         case 10: _t->newAreaChart(); break;
         case 11: _t->newLineBarChart(); break;
+        case 12: _t->newPieChart(); break;
         default: ;
         }
     }
@@ -149,13 +153,13 @@ int MyController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 13)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 13;
     }
     return _id;
 }
