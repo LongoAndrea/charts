@@ -112,8 +112,8 @@ void MyView::setTable(QTableWidget* t) {
 }
 
 
-QString MyView::inputHeaderTableDialog(){
-    return QInputDialog::getText(this,"Input Header Table","Nome colonna:", QLineEdit::Normal);
+QString MyView::inputHeaderTableDialog(const QString& label){
+    return QInputDialog::getText(this,"Input Header Table",label, QLineEdit::Normal);
 }
 
 

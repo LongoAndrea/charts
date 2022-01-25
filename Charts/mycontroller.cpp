@@ -90,8 +90,8 @@ void MyController::newBarChart() {
     QString title = "";
     int rows = 0, columns = 0;
     view->showStandardInputDialog(title, rows, columns);
-    model->createMatrix(title,rows+1,columns+1); //la matrix ha sempre una colonna e una riga in più
-
+    model->createMatrix(title,1,1);
+    newTableHeaders(rows,columns);
     updateTable();
     //MyAbstractChart *aux = chart;
     //if(chart != nullptr)    delete chart; //quando il programma viene avviato, chart è nullptr
@@ -106,6 +106,7 @@ void MyController::newRadarChart() {
     int rows = 0, columns = 0;
     view->showStandardInputDialog(title,rows,columns);
     model->createMatrix(title,rows+1,columns+1);
+    newTableHeaders(rows,columns);
     updateTable();
     chart = new MyRadarChart(model->getMatrix());
     view->setChart(chart->createChart());
@@ -117,7 +118,7 @@ void MyController::newLineChart() {
     int rows = 0, columns = 0;
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
-    model->createMatrix(title,rows+1,columns+1);
+    model->createMatrix(title,1,columns+1);
     /*QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
         for(int j=0; j<columns; j++)
@@ -130,6 +131,8 @@ void MyController::newLineChart() {
         if(format == "MM.yyyy")
             dateTime = dateTime.addMonths(1);
     }
+    for(int i = 1; i < rows+1; i++)
+        insertTableHeader(i,"r","Title of row " + QString::number(i) + ":");
     updateTable();
     //view->setTable(table);
     chart = new MyLineChart(format);
@@ -143,7 +146,7 @@ void MyController::newAreaChart() {
     int rows = 0, columns = 0;
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
-    model->createMatrix(title,rows+1,columns+1);
+    model->createMatrix(title,1,columns+1);
     /*QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
         for(int j=0; j<columns; j++)
@@ -156,6 +159,8 @@ void MyController::newAreaChart() {
         if(format == "MM.yyyy")
             dateTime = dateTime.addMonths(1);
     }
+    for(int i = 1; i < rows+1; i++)
+        insertTableHeader(i,"r","Title of row " + QString::number(i) + ":");
     updateTable();
     //view->setTable(table);
     chart = new MyAreaChart(format);
@@ -169,7 +174,7 @@ void MyController::newLineBarChart() {
     int rows = 0, columns = 0;
     QDateTime dateTime;
     view->showDataInputDialog(title, rows, columns, format, dateTime);
-    model->createMatrix(title,rows+1,columns+1);
+    model->createMatrix(title,1,columns+1);
     /*
     QTableWidget *table = new QTableWidget(rows,columns);
     for(int i=0; i<rows; i++)
@@ -184,6 +189,8 @@ void MyController::newLineBarChart() {
         if(format == "MM.yyyy")
             dateTime = dateTime.addMonths(1);
     }
+    for(int i = 1; i < rows+1; i++)
+        insertTableHeader(i,"r","Title of row " + QString::number(i) + ":");
     updateTable();
     //view->setTable(table);
     chart = new MyLineBarChart(format);
@@ -245,21 +252,21 @@ void MyController::saveFile(){
 
 void MyController::addRow(){
 
-    model->addRow();
-    model->modifyValue(model->getMatrix()->getRows()-1,0,view->inputHeaderTableDialog());
+    /*model->addRow();
+    model->modifyValue(model->getMatrix()->getRows()-1,0,view->inputHeaderTableDialog("Title of new row:"));*/
+    insertTableHeader(model->getMatrix()->getRows(),"r","Title of new row:");
     //mostro nella vista
     updateTable();
     view->setChart(chart->createChart()); //chiamata polimorfa
 }
 
 void MyController::addColumn(){
-    model->addColumn();
-    int rows = model->getMatrix()->getRows();
-    int columns = model->getMatrix()->getColumns();
     MyAbstractDateChart* ptr = dynamic_cast<MyAbstractDateChart*>(chart);
     if(ptr !=nullptr)
     {
         //sono datechart
+        model->addColumn();
+        int columns = model->getMatrix()->getColumns();
         QString format = ptr->getFormat();
         QDateTime lastDate = QDateTime::fromString(model->getValue(0,columns-2),format);
         if(format == "yyyy")
@@ -271,7 +278,8 @@ void MyController::addColumn(){
     else
         //sono un chart senza date
         //mostro nella vista
-        model->modifyValue(0,columns-1,view->inputHeaderTableDialog());
+        //model->modifyValue(0,columns-1,view->inputHeaderTableDialog("Title of new column:"));
+        insertTableHeader(model->getMatrix()->getColumns(),"c","Title of new column:");
     updateTable();
     view->setChart(chart->createChart()); //chiamata polimorfa
 
@@ -312,4 +320,55 @@ void MyController::updateTable(){
         table->setHorizontalHeaderItem(i,new QTableWidgetItem(model->getValue(0,i+1)));
 
     view->setTable(table);
+}
+
+void MyController::newTableHeaders(int rows, int columns) {
+    for(int i = 1; i < rows+1; i++)
+        insertTableHeader(i,"r","Title of row " + QString::number(i) + ":");
+    for(int j = 1; j < columns+1; j++)
+        insertTableHeader(j,"c","Title of column " + QString::number(j) + ":");
+}
+
+void MyController::insertTableHeader(int k, const QString& id, const QString& label) {
+    bool checkValue = true;
+    while(checkValue) {
+        QString value = view->inputHeaderTableDialog(label);
+        checkValue = checkHeader(id,value);
+        if(id == "r") {
+            if(!checkValue) {
+                model->addRow();
+                model->modifyValue(k,0,value);
+            }
+            else {
+                QMessageBox b;
+                b.setText("Row title already used!");
+                b.exec();
+            }
+        }
+        else {
+            if(!checkValue) {
+                model->addColumn();
+                model->modifyValue(0,k,value);
+            }
+            else {
+                QMessageBox b;
+                b.setText("Column title already used!");
+                b.exec();
+            }
+        }
+    }
+}
+
+bool MyController::checkHeader(const QString& id, const QString& value) {
+    if(id == "r") {
+        for(int i = 1; i < model->getMatrix()->getRows(); i++)
+            if(model->getValue(i,0) == value)
+                return true;
+    }
+    else {
+        for(int j = 1; j < model->getMatrix()->getColumns(); j++)
+            if(model->getValue(0,j) == value)
+                return true;
+    }
+    return false;
 }
