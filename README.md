@@ -1,5 +1,5 @@
 # Charts
-![alt text](https://github.com/LongoAndrea/charts/example.png?raw=true)
+![alt text](https://github.com/LongoAndrea/charts/blob/main/example.png?raw=true)
 Il software Charts permette di creare un chart e di modificare i dati tramite una tabella. Le modifiche
 possono essere eseguite anche in un secondo momento salvando il chart in un file.
 I chart disponibili sono: barchart, line chart, bar line chart, pie chart, area chart, radar chart.
