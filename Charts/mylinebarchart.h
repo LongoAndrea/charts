@@ -7,7 +7,7 @@
 class MyLineBarChart : public MyBarChart, public MyLineChart
 {
 public:
-    MyLineBarChart(Matrix& m, const QString& f);
+    MyLineBarChart(const QString& f, const Matrix* m = 0);
     virtual ~MyLineBarChart() =default;
     virtual QChart* createChart() const;
 };

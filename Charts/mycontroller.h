@@ -4,23 +4,43 @@
 #include "matrix.h"
 #include "mymodel.h"
 #include "myabstractchart.h"
+#include "myview.h"
 #include <QObject>
 #include <QTableWidget>
 
 class MyController : public QObject {
-Q_OBJECT
+    Q_OBJECT
 private:
   MyModel *model;
-  QTableWidget *table;
-  QChartView *chartView;
   MyAbstractChart *chart;
-  QWidget *mainWidget;
+  MyView *view;
+
+  MyAbstractChart* create(QString&,QString&);
+  void updateTable();
+  void newTableHeaders(int rows, int columns);
+  void insertTableHeader(int k, const QString& id, const QString& label);
+  bool checkHeader(const QString& id, const QString& value);
+
 public:
-  MyController(MyModel *m) : model(m), table(nullptr), chartView(nullptr), chart(nullptr), mainWidget(nullptr) {}
-  //MyController(Matrix &m, QWidget &w);
-  void show();
-  //QTableWidget* getTableWidget() {return table;} //const ???
+  explicit MyController(QObject* parent = nullptr) : QObject(parent), chart(nullptr) {}
+  void setModel(MyModel *m) {model = m;}
+  void setView(MyView *v) {view = v;}
+  void modifyMatrix(int x, int y, const QString& value);
+
 public slots:
-  void modifyMatrix(int x, int y);
+
+  void newBarChart();
+  void onCellChanged(QTableWidgetItem* item);
+  void openFile();
+  void saveFile();
+  void addRow();
+  void addColumn();
+  void deleteRow();
+  void deleteColumn();
+  void newRadarChart();
+  void newLineChart();
+  void newAreaChart();
+  void newLineBarChart();
+  void newPieChart();
 };
 #endif

@@ -3,11 +3,11 @@
 
 #include "myabstractchart.h"
 
-class MyRadarChart : virtual public MyAbstractChart
+class MyRadarChart : public MyAbstractChart
 {
 public:
     MyRadarChart() =default;
-    MyRadarChart(Matrix& mat): MyAbstractChart(mat){}
+    MyRadarChart(const Matrix* mat): MyAbstractChart(mat){}
     virtual ~MyRadarChart() = default;
     virtual QChart* createChart() const;
 };

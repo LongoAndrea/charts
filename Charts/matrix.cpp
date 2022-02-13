@@ -20,12 +20,16 @@ void Matrix::addColumn(const QString& value) {
 }
 
 void Matrix::deleteRow() {
-  matrix.removeLast();
-  rows -= 1;
+  if(rows != 1) {
+    matrix.removeLast();
+    rows -= 1;
+  }
 }
 
 void Matrix::deleteColumn() {
-  for(int i=0; i<rows; i++)
-    matrix[i].removeLast();
-  columns -= 1;
+  if(columns != 1) {
+    for(int i=0; i<rows; i++)
+      matrix[i].removeLast();
+    columns -= 1;
+  }
 }

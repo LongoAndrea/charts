@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-<type>barchart</type>
-<column>
-    <row>il titolo del grafico </row><?titolo?>
-    <row>Andrea</row>
-    <row>Bepi</row>
-    <row>Stannis</row>
-</column>
-<column>
-    <row>gennaio</row>
-    <row>17</row>
-    <row>5</row>
-    <row>7</row>
-</column>
-<column>
-    <row>febbraio</row>
-    <row>25</row>
-    <row>13</row>
-    <row>9</row>
-</column>
+    <type>14MyLineBarChart</type>
+    <dateformat>yyyy</dateformat>
+    <column>
+        <row>Title</row>
+        <row>1</row>
+        <row>2</row>
+        <row>3</row>
+    </column>
+    <column>
+        <row>2000</row>
+        <row>3</row>
+        <row>6</row>
+        <row>95</row>
+    </column>
+    <column>
+        <row>2001</row>
+        <row>0</row>
+        <row>4</row>
+        <row>5</row>
+    </column>
+    <column>
+        <row>2002</row>
+        <row>6</row>
+        <row>78</row>
+        <row>98</row>
+    </column>
 </data>

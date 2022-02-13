@@ -10,8 +10,7 @@
 class MyLineChart : public MyAbstractDateChart
 {
 public:
-    MyLineChart() =default;
-    MyLineChart(Matrix& m, const QString& f) : MyAbstractDateChart(m, f) {}
+    MyLineChart(const QString& f, const Matrix* m = 0) : MyAbstractDateChart(m, f) {}
     virtual ~MyLineChart() =default;
     virtual QChart* createChart() const;
 };

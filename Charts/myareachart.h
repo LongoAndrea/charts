@@ -10,7 +10,7 @@
 class MyAreaChart : public MyAbstractDateChart
 {
 public:
-    MyAreaChart(Matrix& m, const QString& f) : MyAbstractDateChart(m, f) {}
+    MyAreaChart(const QString& f, const Matrix* m = 0) : MyAbstractDateChart(m, f) {}
     virtual QChart* createChart() const;
 };
 

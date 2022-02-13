@@ -1,7 +1,7 @@
 #include "mylinebarchart.h"
 #include "matrix.h"
 
-MyLineBarChart::MyLineBarChart(Matrix& mat, const QString& f): MyAbstractChart(mat), MyLineChart(mat,f) {}
+MyLineBarChart::MyLineBarChart(const QString& f, const Matrix* mat): MyAbstractChart(mat), MyLineChart(f) {}
 
 QChart* MyLineBarChart::createChart() const {
     QChart *chart = new QChart();
@@ -26,7 +26,7 @@ QChart* MyLineBarChart::createChart() const {
     QLineSeries *lseries = new QLineSeries();
     lseries->setName("Media");
     for(int j = 1; j < m->getColumns(); j++) {
-        QDateTime d = QDateTime::fromString(m->getValue(0,j), "dd.MM.yyyy");
+        QDateTime d = QDateTime::fromString(m->getValue(0,j), format);
         double sum = 0;
         for(int i = 1; i < m->getRows(); i++) {
             sum += m->getValue(i,j).toInt();

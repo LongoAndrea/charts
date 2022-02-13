@@ -10,11 +10,11 @@ class MyAbstractDateChart : virtual public MyAbstractChart {
 protected:
     QString format;
 public:
-    MyAbstractDateChart(Matrix& m, const QString& f) : MyAbstractChart(m), format(f) {}
+    MyAbstractDateChart(const Matrix* mat, const QString& f) : MyAbstractChart(mat), format(f) {}
     const QString& getFormat() const { return format; }
     virtual ~MyAbstractDateChart() =default;
     virtual QChart* createChart() const =0;
-
+    void setFormat(QString& f) {format = f;}
 };
 
 #endif

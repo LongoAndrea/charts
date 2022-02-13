@@ -28,19 +28,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    matrix.cpp \
-    myabstractchart.cpp \
-    myabstractdatechart.cpp \
+    matrix.cpp \    
     myareachart.cpp \
     mybarchart.cpp \
     mycontroller.cpp \
     mylinebarchart.cpp \
     mylinechart.cpp \
-    myradarchart.cpp \
-    loader.cpp \
+    myradarchart.cpp \    
     xmlloader.cpp \
     mymodel.cpp \
-    myview.cpp
+    myview.cpp \
+    standardinputdialog.cpp \
+    dateinputdialog.cpp \
+    drilldownchart.cpp \
+    drilldownslice.cpp \
+    mypiechart.cpp
 
 HEADERS += \
     matrix.h \
@@ -55,4 +57,9 @@ HEADERS += \
     loader.h \
     xmlloader.h \
     mymodel.h \
-    myview.h
+    myview.h \
+    standardinputdialog.h \
+    dateinputdialog.h \
+    drilldownchart.h \
+    drilldownslice.h \
+    mypiechart.h
