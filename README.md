@@ -17,5 +17,5 @@ make
 ./Charts
 ```
 ## Autori
- - [Nicola Cecchetto] (https://github.com/nicolacecchetto)
- - [Andrea Longo] (https://github.com/LongoAndrea)
+ - [Nicola Cecchetto](https://github.com/nicolacecchetto)
+ - [Andrea Longo](https://github.com/LongoAndrea)
